@@ -1,0 +1,316 @@
+<div>
+  <div class="flex justify-between items-center my-4 px-2">
+    <h1 class="text-lg font-semibold text-neutral-500 cursor-default">
+      Clients
+    </h1>
+    <button
+      class="border rounded-md py-1 px-2 bg-sky-900 text-neutral-50 text-sm font-semibold border-sky-900 hover:text-orange-600 transition-all duration-150"
+      data-bs-toggle="modal"
+      data-bs-target="#scrollableModal"
+    >
+      Add client
+    </button>
+  </div>
+  <div class="bg-sky-900 rounded-md">
+    <div class="py-4 pl-2">
+      <label for="search" class="mr-2 text-sm italic font-semibold hidden"
+        >Cautare:</label
+      ><input
+        type="text"
+        id="search"
+        class="rounded-xl outline-none px-2 py-0.5 text-sm placeholder:italic placeholder:text-sm placeholder:text-neutral-400 placeholder:border-0"
+        placeholder="Cauta..."
+      />
+    </div>
+    <div class="flex flex-col mb-4">
+      <table class="cursor-default text-neutral-900 mb-1">
+        <thead class="bg-orange-600 border-b text-neutral-50 text-xs">
+          <tr>
+            <th scope="col" class="px-2 py-2 text-left">Nume client</th>
+            <th scope="col" class="px-2 py-2 text-left">CUI</th>
+            <th scope="col" class="px-2 py-2 text-left">Nr. reg. com.</th>
+            <th scope="col" class="px-2 py-2 text-left hidden lg:table-cell">
+              Judet
+            </th>
+            <th scope="col" class="px-2 py-2 text-left hidden lg:table-cell">
+              Pers. contact
+            </th>
+            <th scope="col" class="px-2 py-2 text-left hidden lg:table-cell">
+              Agent asignat
+            </th>
+            <th scope="col" class="px-2 py-2 text-left hidden lg:table-cell">
+              Edit
+            </th>
+            <th scope="col" class="px-2 py-2 text-center">Delete</th>
+          </tr>
+        </thead>
+        <tbody class="text-xs">
+          {{clientsTable}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div
+    class="modal fade fixed top-0 left-0 hidden w-full h-full outline-none overflow-x-hidden overflow-y-auto"
+    id="scrollableModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalCenteredScrollable"
+    aria-modal="true"
+    role="dialog"
+  >
+    <div
+      class="w-full lg:pointer-events-none flex items-center justify-center mt-14"
+    >
+      <div
+        class="modal-lg modal-dialog modal-dialog-centered modal-dialog-scrollable relative w-full pointer-events-none"
+      >
+        <div
+          class="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current"
+        >
+          <form class="mt-2" method="POST" action="?page=addClient">
+            <div
+              class="modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-neutral-200 rounded-t-md"
+            >
+              <h5
+                class="text-xl font-medium leading-normal text-neutral-800"
+                id="scrollableModal"
+              >
+                Adauga companie
+              </h5>
+              <button
+                type="button"
+                class="btn-close box-content w-4 h-4 p-1 text-neutral-900 border-none rounded-none focus:shadow-none focus:outline-none focus:opacity-100 hover:text-black hover:opacity-75 hover:no-underline"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              >
+                <i class="fa-solid fa-xmark text-xl"></i>
+              </button>
+            </div>
+            <div class="modal-body relative p-4 text-sm">
+              <div class="bg-sky-50 rounded-md my-4 pb-2">
+                <div class="p-2">
+                  <h2 class="italic font-semibold text-neutral-900 underline">
+                    Client:
+                  </h2>
+                </div>
+                <div class="flex flex-wrap">
+                  <div
+                    class="wrapper inline-block w-full flex flex-col items-start justify-center p-2"
+                  >
+                    <div
+                      class="select-btn w-full lg:w-1/2 p-2 cursor-pointer flex items-center justify-between bg-white rounded-md"
+                    >
+                      <span>Select Client</span>
+                      <i
+                        class="transition-all duration-300 fa-solid fa-chevron-down"
+                      ></i>
+                    </div>
+                    <div
+                      class="content hidden p-2 w-full lg: w-1/2 bg-white rounded-md mt-1"
+                    >
+                      <div class="search relative">
+                        <i
+                          class="fa-sharp fa-solid fa-magnifying-glass absolute top-2 left-2 text-neutral-500"
+                        ></i>
+                        <input
+                          type="text"
+                          placeholder="Search"
+                          class="w-full border border-neutral-200 py-1 px-8 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic rounded-md"
+                        />
+                      </div>
+                      <ul
+                        class="options p-2 mt-1 max-h-64 overflow-y-auto"
+                      ></ul>
+                    </div>
+                  </div>
+                  <div
+                    class="inline-block w-full lg:w-1/2 flex flex-col items-start justify-center p-2"
+                  >
+                    <label for="companyName" class="italic mb-1"
+                      >Nume firma:</label
+                    ><input
+                      type="text"
+                      id="name"
+                      name="name"
+                      value="BOS"
+                      class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                    />
+                  </div>
+                  <div
+                    class="inline-block w-full lg:w-1/2 flex flex-col items-start justify-center p-2"
+                  >
+                    <label for="cuiCif" class="italic mb-1">CUI / CIF:</label
+                    ><input
+                      type="text"
+                      id="cui"
+                      name="cui"
+                      value="12341234"
+                      class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                    />
+                  </div>
+                  <div
+                    class="inline-block w-full lg:w-1/2 flex flex-col items-start justify-center p-2"
+                  >
+                    <label for="nrRegCom" class="italic mb-1"
+                      >Nr. reg. com.:</label
+                    ><input
+                      type="text"
+                      id="j"
+                      name="j"
+                      value="BOS"
+                      class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                    />
+                  </div>
+                  <div
+                    class="inline-block w-full lg:w-1/2 flex flex-col items-start justify-center p-2"
+                  >
+                    <label for="socialPlace" class="italic mb-1"
+                      >Sediu social:</label
+                    ><input
+                      type="text"
+                      id="location"
+                      name="location"
+                      value="BOS"
+                      class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                    />
+                  </div>
+                  <div
+                    class="inline-block w-full lg:w-1/2 flex flex-col items-start justify-center p-2"
+                  >
+                    <label for="account" class="italic mb-1">Cont (IBAN):</label
+                    ><input
+                      type="text"
+                      id="iban"
+                      name="iban"
+                      value="BOS"
+                      class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                    />
+                  </div>
+                  <div
+                    class="inline-block w-full lg:w-1/2 flex flex-col items-start justify-center p-2"
+                  >
+                    <label for="bank" class="italic mb-1">Contact person:</label
+                    ><input
+                      type="text"
+                      id="contactPers"
+                      name="contactPers"
+                      value="BOS"
+                      class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                    />
+                  </div>
+                  <div
+                    class="inline-block w-full lg:w-1/2 flex flex-col items-start justify-center p-2"
+                  >
+                    <label for="bank" class="italic mb-1">Telefon:</label
+                    ><input
+                      type="text"
+                      id="phone"
+                      name="phone"
+                      value="BOS"
+                      class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                    />
+                  </div>
+                  <div
+                    class="inline-block w-full lg:w-1/2 flex flex-col items-start justify-center p-2"
+                  >
+                    <label for="bank" class="italic mb-1">Email:</label
+                    ><input
+                      type="text"
+                      id="email"
+                      name="email"
+                      value="BOS"
+                      class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="modal-footer flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-neutral-200 rounded-b-md"
+            >
+              <button
+                type="button"
+                class="inline-block px-6 py-2.5 bg-orange-600 text-orange-50 font-medium text-xs leading-tight rounded shadow-md hover:bg-orange-700 hover:shadow-lg focus:bg-orange-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-orange-800 active:shadow-lg transition duration-150 ease-in-out"
+                data-bs-dismiss="modal"
+              >
+                Inchide
+              </button>
+              <input
+                value="Submit"
+                type="submit"
+                class="inline-block px-6 py-2.5 bg-sky-900 text-sky-50 font-medium text-xs leading-tight rounded shadow-md hover:bg-sky-800 hover:shadow-lg focus:bg-sky-800 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-sky-700 active:shadow-lg transition duration-150 ease-in-out ml-1 cursor-pointer"
+              />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  const wrapper = document.querySelector(".wrapper");
+  const selectBtn = document.querySelector(".select-btn");
+  const content = document.querySelector(".content");
+  const chevronDown = document.querySelector(".select-btn i");
+  options = wrapper.querySelector(".options");
+  const searchInput = document.querySelector(".search input");
+
+  let clients = [
+    "McDonald's",
+    "ASUS",
+    "Durex",
+    "Diana Shopping",
+    "BMW",
+    "VooPoo",
+    "Simpra",
+    "Simi Sefu",
+  ];
+
+  function addClient(selectedClient) {
+    options.innerHTML = "";
+    clients.forEach((client) => {
+      let isSelected = client == selectedClient ? "selected" : "";
+      let li = `<li onClick="updateName(this)" class="bg-white rounded-md hover:bg-neutral-100 cursor-pointer p-2 ${isSelected}">${client}</li>`;
+      options.insertAdjacentHTML("beforeend", li);
+    });
+  }
+
+  addClient();
+
+  function updateName(selectedLi) {
+    searchInput.value = "";
+    addClient(selectedLi.innerText);
+    selectBtn.firstElementChild.innerText = selectedLi.innerText;
+    content.classList.add("hidden");
+    chevronDown.style = "transform: rotate(0)";
+    wrapper.classList.remove("active");
+  }
+
+  searchInput.addEventListener("keyup", () => {
+    let arr = [];
+    let searchedValue = searchInput.value.toLowerCase();
+    arr = clients
+      .filter((data) => {
+        return data.toLowerCase().includes(searchedValue);
+      })
+      .map(
+        (data) =>
+          `<li onClick="updateName(this)" class="bg-white rounded-md hover:bg-neutral-100 cursor-pointer p-2">${data}</li>`
+      )
+      .join("");
+    options.innerHTML = arr
+      ? arr
+      : `<p class="p-2 bg-red-100 rounded-md opacity-50">Nu s-a gasit niciun client</p>`;
+  });
+
+  selectBtn.addEventListener("click", () => {
+    wrapper.classList.toggle("active");
+    if (wrapper.classList.contains("active")) {
+      content.classList.remove("hidden");
+      chevronDown.style = "transform: rotate(-180deg)";
+    } else {
+      content.classList.add("hidden");
+      chevronDown.style = "transform: rotate(0)";
+    }
+  });
+</script>

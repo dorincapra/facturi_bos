@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/tw-elements@1.0.0-alpha12/dist/css/index.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+      integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <script src="https://cdn.tailwindcss.com/3.2.6"></script>
+    <title>App Facturare</title>
+  </head>
+  <body>
+    <div class="w-full h-screen flex items-center justify-center relative">
+      <div class="bg-orange-600 p-4 rounded-xl">
+        <div class="bg-sky-900 py-10 px-12 rounded-xl w-96">
+          <p class="text-neutral-50 italic text-sm font-semibold mb-10">
+            Business Outsourcing Solutions
+          </p>
+          <form class="flex flex-col" action="?page=authenticate" method="post">
+            <div
+              class="inline-block w-full lg:w-1/3 flex flex-col items-start justify-center p-2"
+            >
+              <label for="username" class="italic mb-2 text-neutral-50 text-sm"
+                >Username:</label
+              ><input
+                type="text"
+                id="username"
+                name="username"
+                class="w-full py-0.5 px-2 text-md placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+              />
+            </div>
+            <div
+              class="inline-block w-full lg:w-1/3 flex flex-col items-start justify-center p-2"
+            >
+              <label for="password" class="italic mb-2 text-neutral-50 text-sm"
+                >Password:</label
+              ><input
+                type="password"
+                id="password"
+                name="password"
+                class="w-full py-0.5 px-2 text-md placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+              />
+            </div>
+            <button
+              class="mt-4 bg-orange-600 text-sky-50 py-1 rounded-md border border-orange-600 hover:bg-orange-500 transition-all duration-150"
+            >
+              Login
+            </button>
+          </form>
+        </div>
+      </div>
+      <p
+        class="absolute text-9xl font-bold text-sky-50 flex flex-col items-center -z-10 -rotate-12 hidden lg:block"
+      >
+        <span class="mb-36">Business</span><span class="mb-36">Outsourcing</span
+        ><span>Solutions</span>
+      </p>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/tw-elements@1.0.0-alpha12/dist/css/index.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+      integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <script src="https://cdn.tailwindcss.com/3.2.6"></script>
+    <title>App Facturare</title>
+    <style>
+      ul li a.active {
+        color: #ea580c;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="w-100 flex flex-col justify-between min-h-screen">
+      <nav
+        class="relative top-0 w-full flex flex-wrap items-center justify-between bg-sky-900 text-neutral-50 shadow-sm navbar navbar-expand-md z-10"
+        data-te-navbar-ref
+      >
+        <div
+          class="flex items-center justify-end container mx-auto flex flex-wrap items-center justify-between py-4 px-2"
+        >
+          <a class="text-lg lg:text-xl font-bold" href="./?page=home"
+            >invo<span class="text-orange-600">sys</span></a
+          >
+          <button
+            class="block border-0 bg-transparent text-white py-2 px-2.5 text-neutral-500 hover:no-underline hover:shadow-none focus:no-underline focus:shadow-none focus:outline-none focus:ring-0 lg:hidden"
+            type="button"
+            data-te-collapse-init
+            data-te-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <i class="fa fa-bars text-lg" aria-hidden="true"></i>
+          </button>
+          <div
+            class="!visible hidden flex-grow basis-[100%] items-center lg:!flex lg:basis-auto"
+            id="navbarSupportedContent"
+            data-te-collapse-item
+          >
+            <!-- Left links -->
+            <ul
+              id="navLinks"
+              class="navbar-nav flex flex-col list-style-none ml-auto text-right pr-3 lg:pr-0 mt-4 lg:mt-0 lg:flex-row"
+              data-te-navbar-nav-ref
+            >
+            
+            <li class="nav-item my-1 lg:my-0 lg:ml-4" data-te-nav-item-ref>
+              <a
+                class="nav-link hover:text-orange-600 focus:text-orange-600 font-semibold text-sm transition-all duration-200"
+                aria-current="page"
+                data-te-nav-link-ref
+                href="?page=logout"
+                >{{userName}}</a
+              >
+            </li>
+              <li class="nav-item my-1 lg:my-0 lg:ml-4" data-te-nav-item-ref>
+                <a
+                  class="nav-link hover:text-orange-600 focus:text-orange-600 font-semibold text-sm transition-all duration-200"
+                  aria-current="page"
+                  href="./?page=home"
+                  data-te-nav-link-ref
+                  >Acasa</a
+                >
+              </li>
+              <li class="nav-item my-1 lg:my-0 lg:ml-4" data-te-nav-item-ref>
+                <a
+                  class="nav-link hover:text-orange-600 focus:text-orange-600 font-semibold text-sm transition-all duration-200"
+                  aria-current="page"
+                  href="?page=costs"
+                  data-te-nav-link-ref
+                  >Cheltuieli</a
+                >
+              </li>
+              <li class="nav-item my-1 lg:my-0 lg:ml-4" data-te-nav-item-ref>
+                <a
+                  class="nav-link hover:text-orange-600 focus:text-orange-600 font-semibold text-sm transition-all duration-200"
+                  aria-current="page"
+                  href="?page=invoices"
+                  data-te-nav-link-ref
+                  >Facturi emise</a
+                >
+              </li>
+              <li class="nav-item my-1 lg:my-0 lg:ml-4" data-te-nav-item-ref>
+                <a
+                  class="nav-link hover:text-orange-600 focus:text-orange-600 font-semibold text-sm transition-all duration-200"
+                  aria-current="page"
+                  href="?page=clients"
+                  data-te-nav-link-ref
+                  >Clienti</a
+                >
+              </li>
+              <li class="nav-item my-1 lg:my-0 lg:ml-4" data-te-nav-item-ref>
+                <a
+                  class="nav-link hover:text-orange-600 focus:text-orange-600 font-semibold text-sm transition-all duration-200"
+                  aria-current="page"
+                  href="?page=users"
+                  data-te-nav-link-ref
+                  >Utilizatori</a
+                >
+              </li>
+              <li class="nav-item my-1 lg:my-0 lg:ml-4" data-te-nav-item-ref>
+                <a
+                  class="nav-link hover:text-orange-600 focus:text-orange-600 font-semibold text-sm transition-all duration-200"
+                  aria-current="page"
+                  href="?page=settings"
+                  data-te-nav-link-ref
+                  >Setari</a
+                >
+              </li>
+            </ul>
+            <!-- Left links -->
+          </div>
+          <!-- Collapsible wrapper -->
+        </div>
+      </nav>
+      <main class="container mx-auto flex-1 p-2 flex flex-col justify-start">
+        {{content}}
+      </main>
+      <div
+        class="w-100 bg-sky-900 flex items-center justify-center text-neutral-50 font-semibold text-sm py-4"
+      >
+        <p>Business Outsourcing Solutions &copy; | All Rights Reserved</p>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/tw-elements@1.0.0-alpha12/dist/js/index.min.js"></script>
+    <script>
+      const activePage = window.location.href;
+      const navLinks = document
+        .querySelectorAll(".nav-link")
+        .forEach((link) => {
+          if (link.href.includes(`${activePage}`)) {
+            link.classList.add("active");
+          }
+        });
+    </script>
+  </body>
+</html>

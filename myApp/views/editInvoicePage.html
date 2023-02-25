@@ -1,0 +1,511 @@
+<div class="flex flex-col lg:flex-row">
+  <form class="mt-2 w-full lg:w-1/3" action="?page=editPayment" method="POST">
+    <div
+      class="modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-neutral-200 rounded-t-md"
+    >
+      <h1 class="text-lg font-semibold text-neutral-500 cursor-default">
+        Inregistreaza plata pentru factura 
+      </h1>
+    </div>
+    <div class="modal-body relative p-4 text-sm">
+      <div class="bg-sky-50 rounded-md my-4 pb-2">
+        <div class="p-2">
+          <h2 class="italic font-semibold text-neutral-900 underline">
+            Inregistreaza plata partiala:
+          </h2>
+        </div>
+        <div class="flex flex-wrap">
+          <div
+            class="inline-block w-full lg:w-1/2 flex flex-col items-start justify-center p-2"
+          >
+          <label for="invoiceID" class="italic mb-1">Factura {{series}}</label>
+          <input disabled
+          type="number" 
+          id="invoiceID"
+          name="invoiceID"    
+          value={{invoiceID}}         
+          class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic">
+
+            <label for="ammount" class="italic mb-1 mt-5">Suma:</label
+            ><input
+              type="number"
+              id="ammount"
+              name="ammount"
+              class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+              required
+            />
+          </div>
+          <div
+            class="inline-block w-full lg:w-1/2 flex items-end justify-start p-2"
+          >
+            <button
+              class="inline-block px-4 py-1 bg-transparent text-sky-900 text-xs rounded hover:bg-sky-900 focus:ring-0 transition-all duration-150 hover:text-sky-50 border border-sky-900"
+            >
+              Save
+            </button>
+          </div>
+        </div>
+        <div class="p-2">
+          <h2 class="italic font-semibold text-neutral-900 underline">
+            Confirma plata totala:
+          </h2>
+        </div>
+        <div class="inline-block w-full flex items-start justify-start p-2">
+          <button
+            class="border rounded-md py-1 px-2 bg-sky-900 text-neutral-50 text-sm font-semibold border-sky-900 hover:text-orange-600 transition-all duration-150"
+          >
+            Toata suma a fost platita
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+  <form class="mt-2 w-full lg:w-2/3" action="?page=editInvoice" method="POST">
+    <div
+      class="modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-neutral-200 rounded-t-md"
+    >
+      <h1 class="text-lg font-semibold text-neutral-500 cursor-default">
+        Editeaza factura
+      </h1>
+    </div>
+    <div class="modal-body relative p-4 pt-7 text-sm">
+      <div class="text-sm text-neutral-900">
+        <p><strong>Furnizor: </strong>BUSINESS OUTSOURCING SOLUTONS S.R.L.</p>
+        <p><strong>CIF: </strong>RO35723388</p>
+        <p><strong>Nr ord reg com: </strong>J40/2907/2016</p>
+        <p><strong>Sediul: </strong>Str. Nucului, Nr. 51, Sector 3</p>
+        <p><strong>Judet: </strong>Bucuresti</p>
+        <p><strong>Cont: </strong>RO32 RZBR 0000 0600 1844 0293</p>
+        <p><strong>Banca: </strong>Raiffeissen Bank</p>
+        <p><strong>Capital social: </strong>200</p>
+      </div>
+      <div>
+        <div class="bg-sky-50 rounded-md my-4 pb-2">
+          <div class="p-2">
+            <h2 class="italic font-semibold text-neutral-900 underline">
+              Factura fiscala:
+            </h2>
+          </div>
+          <div class="flex flex-wrap">
+            <div
+              class="inline-block w-full lg:w-1/4 flex flex-col items-start justify-center p-2"
+            >
+              <label for="serie" class="italic mb-1">Seria:</label
+              ><input
+                type="text"
+                id="series"
+                name="series"
+                value="BOS"
+                class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                required
+              />
+            </div>
+            <div
+              class="inline-block w-full lg:w-1/4 flex flex-col items-start justify-center p-2"
+            >
+              <label for="nrFactura" class="italic mb-1">Nr. factura:</label
+              ><input
+                type="text"
+                id="number"
+                name="number"
+                value="003257"
+                class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                required
+              />
+            </div>
+            <div
+              class="inline-block w-full lg:w-1/4 flex flex-col items-start justify-center p-2"
+            >
+              <label for="data" class="italic mb-1">Data emiterii:</label
+              ><input
+                type="date"
+                id="emitDate"
+                name="emitDate"
+                value="2022-12-26"
+                class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                required
+              />
+            </div>
+            <div
+              class="inline-block w-1/2 lg:w-1/4 flex flex-col items-start justify-center p-2"
+            >
+              <label for="currency" class="italic mb-1">Moneda:</label
+              ><select
+                id="currency"
+                name="currency"
+                class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                required
+              >
+                <option value="ron" selected>RON</option>
+                <option value="eur" selected>EUR</option>
+                <option value="usd" selected>USD</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="bg-sky-50 rounded-md my-4 pb-2">
+          <div class="p-2">
+            <h2 class="italic font-semibold text-neutral-900 underline">
+              Client:
+            </h2>
+          </div>
+          <div class="flex flex-wrap">
+            <div
+              class="inline-block w-full lg:w-1/2 flex flex-col items-start justify-center p-2"
+            >
+              <label for="companyName" class="italic mb-1">Nume firma:</label
+              ><input
+                type="text"
+                id="name"
+                name="name"
+                value="BOS"
+                class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                required
+              />
+            </div>
+            <div
+              class="inline-block w-full lg:w-1/2 flex flex-col items-start justify-center p-2"
+            >
+              <label for="cuiCif" class="italic mb-1">CUI / CIF:</label
+              ><input
+                type="text"
+                id="cui"
+                name="cui"
+                value="12341234"
+                class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                required
+              />
+            </div>
+            <div
+              class="inline-block w-full lg:w-1/2 flex flex-col items-start justify-center p-2"
+            >
+              <label for="nrRegCom" class="italic mb-1">Nr. reg. com.:</label
+              ><input
+                type="text"
+                id="j"
+                name="j"
+                value="BOS"
+                class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                required
+              />
+            </div>
+            <div
+              class="inline-block w-full lg:w-1/2 flex flex-col items-start justify-center p-2"
+            >
+              <label for="socialPlace" class="italic mb-1">Sediu social:</label
+              ><input
+                type="text"
+                id="location"
+                name="location"
+                value="BOS"
+                class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                required
+              />
+            </div>
+            <div
+              class="inline-block w-full lg:w-1/2 flex flex-col items-start justify-center p-2"
+            >
+              <label for="account" class="italic mb-1">Cont (IBAN):</label
+              ><input
+                type="text"
+                id="iban"
+                name="iban"
+                value="BOS"
+                class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                required
+              />
+            </div>
+            <div
+              class="inline-block w-full lg:w-1/2 flex flex-col items-start justify-center p-2"
+            >
+              <label for="bank" class="italic mb-1">Contact person:</label
+              ><input
+                type="text"
+                id="contactPers"
+                name="contactPers"
+                value="BOS"
+                class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                required
+              />
+            </div>
+            <div
+              class="inline-block w-full lg:w-1/2 flex flex-col items-start justify-center p-2"
+            >
+              <label for="bank" class="italic mb-1">Telefon:</label
+              ><input
+                type="text"
+                id="phone"
+                name="phone"
+                value="BOS"
+                class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                required
+              />
+            </div>
+            <div
+              class="inline-block w-full lg:w-1/2 flex flex-col items-start justify-center p-2"
+            >
+              <label for="bank" class="italic mb-1">Email:</label
+              ><input
+                type="text"
+                id="email"
+                name="email"
+                value="BOS"
+                class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                required
+              />
+            </div>
+          </div>
+        </div>
+        <div class="bg-sky-50 rounded-md my-4 pb-2">
+          <div class="p-2">
+            <h2 class="italic font-semibold text-neutral-900 underline">
+              Servicii / Produse:
+            </h2>
+          </div>
+          <div class="p-2">
+            <ul>
+              <li class="italic" id="listItem">
+                <div
+                  class="flex items-center justify-between px-2 py-1 lg:w-1/3"
+                >
+                  <p>- <strong class="font-semibold">cactus</strong></p>
+                  <button
+                    type="button"
+                    id="deleteBtn"
+                    class="inline-block px-4 py-1 bg-transparent text-sky-900 text-xs rounded hover:bg-sky-900 focus:ring-0 transition-all duration-150 hover:text-sky-50 border border-sky-900"
+                  >
+                    Sterge
+                  </button>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div id="show_item" class="w-full">
+            <div class="flex flex-wrap">
+              <div
+                class="inline-block w-full lg:w-1/2 flex flex-col items-start justify-start p-2"
+              >
+                <label for="itemName" class="italic mb-1 hidden"
+                  >Denumire:*</label
+                ><textarea
+                  type="text"
+                  id="itemName"
+                  name="product_name[]"
+                  class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                  placeholder="Denumire*"
+                  rows="2"
+                  required
+                ></textarea>
+              </div>
+              <div
+                class="inline-block w-full lg:w-1/4 flex flex-col items-start justify-start p-2"
+              >
+                <label for="itemQty" class="italic mb-1 hidden">Cant.:*</label
+                ><input
+                  type="number"
+                  id="itemQty"
+                  name="product_qty[]"
+                  class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                  placeholder="Cantitate*"
+                  required
+                />
+              </div>
+              <div
+                class="inline-block w-full lg:w-1/4 flex flex-col items-start justify-start p-2"
+              >
+                <label for="itemPrice" class="italic mb-1 hidden"
+                  >Pret unit.:*</label
+                ><input
+                  type="number"
+                  id="itemPrice"
+                  name="product_price[]"
+                  class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                  placeholder="Pret unitate*"
+                  required
+                />
+              </div>
+              <div
+                class="inline-block w-full lg:w-1/4 flex flex-col items-start justify-start p-2"
+              >
+                <label for="itemTva" class="italic mb-1 hidden">T.V.A.:*</label
+                ><input
+                  type="number"
+                  id="itemTva"
+                  name="product_tva[]"
+                  class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                  placeholder="T.V.A.*"
+                  required
+                />
+              </div>
+              <div
+                class="inline-block w-full lg:w-1/4 flex flex-col items-start justify-start p-2"
+              >
+                <button
+                  type="button"
+                  class="add_item_btn w-full py-0.5 px-2 text-sm border border-sky-900 rounded text-neutral-900 hover:text-neutral-50 hover:bg-sky-900 transition-all duration-150"
+                >
+                  Adauga produs
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bg-sky-50 rounded-md my-4 pb-2">
+          <div class="p-2">
+            <h2 class="italic font-semibold text-neutral-900 underline">
+              Date interne:
+            </h2>
+          </div>
+          <div class="flex flex-wrap">
+            <div
+              class="inline-block w-full lg:w-1/3 flex flex-col items-start justify-center p-2"
+            >
+              <label for="tipServicii" class="italic mb-1">Tip servicii:</label
+              ><select
+                id="tipServicii"
+                name="tipServicii"
+                value="BOS"
+                class="w-full py-0.5 px-2 text-sm cursor-pointer"
+                required
+              >
+                <option value="">---</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+              </select>
+            </div>
+            <div
+              class="inline-block w-full lg:w-1/3 flex flex-col items-start justify-center p-2"
+            >
+              <label for="postRecrutat" class="italic mb-1"
+                >Post recrutat:</label
+              ><input
+                type="text"
+                id="postRecrutat"
+                name="postRecrutat"
+                value="003257"
+                class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                required
+              />
+            </div>
+            <div
+              class="inline-block w-full lg:w-1/3 flex flex-col items-start justify-center p-2"
+            >
+              <label for="respRecrutare" class="italic mb-1"
+                >Resp. recrutare:</label
+              ><select
+                id="respRecrutare"
+                name="respRecrutare"
+                value="BOS"
+                class="w-full py-0.5 px-2 text-sm cursor-pointer"
+                required
+              >
+                <option value="">---</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="modal-footer flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-neutral-200 rounded-b-md"
+    >
+      <input
+        value="Submit"
+        type="submit"
+        class="inline-block px-6 py-2.5 bg-sky-900 text-sky-50 font-medium text-xs leading-tight rounded shadow-md hover:bg-sky-800 hover:shadow-lg focus:bg-sky-800 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-sky-700 active:shadow-lg transition duration-150 ease-in-out ml-1 cursor-pointer"
+      />
+    </div>
+  </form>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(".add_item_btn").click(function (e) {
+      e.preventDefault();
+      $("#show_item").prepend(`<div class="flex flex-wrap">
+                            <div
+                              class="inline-block w-full lg:w-1/2 flex flex-col items-start justify-start p-2"
+                            >
+                              <label for="itemName" class="italic mb-1 hidden"
+                                >Denumire:*</label
+                              ><textarea
+                                type="text"
+                                id="itemName"
+                                name="product_name[]"
+                                class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                                placeholder="Denumire*"
+                                rows="2"
+                                required
+                              ></textarea>
+                            </div>
+                            <div
+                              class="inline-block w-full lg:w-1/4 flex flex-col items-start justify-start p-2"
+                            >
+                              <label for="itemQty" class="italic mb-1 hidden"
+                                >Cant.:*</label
+                              ><input
+                                type="number"
+                                id="itemQty"
+                                name="product_qty[]"
+                                class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                                placeholder="Cantitate*"
+                                required
+                              />
+                            </div>
+                            <div
+                              class="inline-block w-full lg:w-1/4 flex flex-col items-start justify-start p-2"
+                            >
+                              <label for="itemPrice" class="italic mb-1 hidden"
+                                >Pret unit.:*</label
+                              ><input
+                                type="number"
+                                id="itemPrice"
+                                name="product_price[]"
+                                class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                                placeholder="Pret unitate*"
+                                required
+                              />
+                            </div>
+                            <div
+                              class="inline-block w-full lg:w-1/4 flex flex-col items-start justify-start p-2"
+                            >
+                              <label for="itemTva" class="italic mb-1 hidden"
+                                >T.V.A.:*</label
+                              ><input
+                                type="number"
+                                id="itemTva"
+                                name="product_tva[]"
+                                class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                                placeholder="T.V.A.*"
+                                required
+                              />
+                            </div>
+                            <div
+                              class="inline-block w-full lg:w-1/4 flex flex-col items-start justify-start p-2"
+                            >
+                             <button
+              			type="button"
+              			class="remove_item_btn w-full py-0.5 px-2 text-sm border border-red-900 rounded text-neutral-900 hover:text-neutral-50 hover:bg-red-900 transition-all duration-150"
+            			>
+             			 Sterge
+            			</button>
+                            </div>
+                          </div>`);
+    });
+    $(document).on("click", ".remove_item_btn", function (e) {
+      e.preventDefault();
+      let row_item = $(this).parent().parent();
+      $(row_item).remove();
+    });
+  });
+</script>
+<script>
+  const listItem = document.getElementById("listItem");
+  const deleteBtn = document.getElementById("deleteBtn");
+
+  deleteBtn.addEventListener("click", () => {
+    listItem.innerHTML = "";
+  });
+</script>

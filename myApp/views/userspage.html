@@ -1,0 +1,202 @@
+<div>
+  <div class="flex justify-between items-center my-4 px-2">
+    <h1 class="text-lg font-semibold text-neutral-500 cursor-default">Users</h1>
+    <button
+      class="border rounded-md py-1 px-2 bg-sky-900 text-neutral-50 text-sm font-semibold border-sky-900 hover:text-orange-600 transition-all duration-150"
+      data-bs-toggle="modal"
+      data-bs-target="#scrollableModal"
+    >
+      Add user
+    </button>
+  </div>
+  <div class="bg-sky-900 rounded-md">
+    <div class="py-4 pl-2">
+      <label for="search" class="mr-2 text-sm italic font-semibold hidden"
+        >Cautare:</label
+      ><input
+        type="text"
+        id="search"
+        class="rounded-xl outline-none px-2 py-0.5 text-sm placeholder:italic placeholder:text-sm placeholder:text-neutral-400 placeholder:border-0"
+        placeholder="Cauta..."
+      />
+    </div>
+    <div class="flex flex-col mb-4">
+      <table class="cursor-default text-neutral-900 mb-1">
+        <thead
+          class="bg-orange-600 transition-all duration-100 border-b text-neutral-50 text-xs"
+        >
+          <tr>
+            <th scope="col" class="px-2 py-2 text-left">Nume</th>
+            <th scope="col" class="px-2 py-2 text-left">Telefon</th>
+            <th scope="col" class="px-2 py-2 text-left hidden lg:table-cell">
+              E-mail
+            </th>
+            <th scope="col" class="px-2 py-2 text-left hidden lg:table-cell">
+              Tip
+            </th>
+            <th scope="col" class="px-2 py-2 text-center">Edit</th>
+            <th scope="col" class="px-2 py-2 text-center">Delete</th>
+          </tr>
+        </thead>
+        <tbody class="text-xs">
+          {{usersTableContent}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div
+    class="modal fade fixed top-0 left-0 hidden w-full h-full outline-none overflow-x-hidden overflow-y-auto"
+    id="scrollableModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalCenteredScrollable"
+    aria-modal="true"
+    role="dialog"
+  >
+    <div
+      class="w-full lg:pointer-events-none flex items-center justify-center mt-14"
+    >
+      <div
+        class="modal-lg modal-dialog modal-dialog-centered modal-dialog-scrollable relative w-full pointer-events-none"
+      >
+        <div
+          class="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current"
+        >
+          <form class="mt-2" method="POST" action="?page=addUser">
+            <div
+              class="modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-neutral-200 rounded-t-md"
+            >
+              <h5
+                class="text-xl font-medium leading-normal text-neutral-800"
+                id="scrollableModal"
+              >
+                Adauga user
+              </h5>
+              <button
+                type="button"
+                class="btn-close box-content w-4 h-4 p-1 text-neutral-900 border-none rounded-none focus:shadow-none focus:outline-none focus:opacity-100 hover:text-black hover:opacity-75 hover:no-underline"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              >
+                <i class="fa-solid fa-xmark text-xl"></i>
+              </button>
+            </div>
+            <div class="modal-body relative p-4 text-sm">
+              <div>
+                <div class="bg-sky-50 rounded-md my-4 pb-2">
+                  <div class="p-2">
+                    <h2 class="italic font-semibold text-neutral-900 underline">
+                      Informatii:
+                    </h2>
+                  </div>
+                  <div class="flex flex-wrap">
+                    <div
+                      class="inline-block w-full lg:w-1/2 flex flex-col items-start justify-center p-2"
+                    >
+                      <label for="name" class="italic mb-1">Name:</label
+                      ><input
+                        type="text"
+                        id="name"
+                        name="name"
+                        value="BOS"
+                        class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                      />
+                    </div>
+                    <div
+                      class="inline-block w-full lg:w-1/2 flex flex-col items-start justify-center p-2"
+                    >
+                      <label for="userName" class="italic mb-1">Username:</label
+                      ><input
+                        type="text"
+                        id="userName"
+                        name="userName"
+                        value="BOS"
+                        class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                      />
+                    </div>
+                    <div
+                      class="inline-block w-full lg:w-1/2 flex flex-col items-start justify-center p-2"
+                    >
+                      <label for="password" class="italic mb-1">Password:</label
+                      ><input
+                        type="password"
+                        id="password"
+                        name="password"
+                        value="BOS"
+                        class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                      />
+                    </div>
+                    <div
+                      class="inline-block w-full lg:w-1/2 flex flex-col items-start justify-center p-2"
+                    >
+                      <label for="confirmPassword" class="italic mb-1"
+                        >Confirm password:</label
+                      ><input
+                        type="password"
+                        id="confirmPassword"
+                        name="confirmPassword"
+                        value="BOS"
+                        class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                      />
+                    </div>
+                    <div
+                      class="inline-block w-full lg:w-1/2 flex flex-col items-start justify-center p-2"
+                    >
+                      <label for="type" class="italic mb-1">Tip:</label
+                      ><input
+                        type="text"
+                        id="type"
+                        name="type"
+                        value="BOS"
+                        class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                      />
+                    </div>
+                    <div
+                      class="inline-block w-full lg:w-1/2 flex flex-col items-start justify-center p-2"
+                    >
+                      <label for="email" class="italic mb-1">E-mail:</label
+                      ><input
+                        type="email"
+                        id="email"
+                        name="email"
+                        value="BOS"
+                        class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                      />
+                    </div>
+                    <div
+                      class="inline-block w-full lg:w-1/2 flex flex-col items-start justify-center p-2"
+                    >
+                      <label for="telephone" class="italic mb-1">Telefon:</label
+                      ><input
+                        type="text"
+                        id="phone"
+                        name="phone"
+                        value="BOS"
+                        class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="modal-footer flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-neutral-200 rounded-b-md"
+            >
+              <button
+                type="button"
+                class="inline-block px-6 py-2.5 bg-orange-600 text-orange-50 font-medium text-xs leading-tight rounded shadow-md hover:bg-orange-700 hover:shadow-lg focus:bg-orange-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-orange-800 active:shadow-lg transition duration-150 ease-in-out"
+                data-bs-dismiss="modal"
+              >
+                Inchide
+              </button>
+              <input
+                value="Submit"
+                type="submit"
+                class="inline-block px-6 py-2.5 bg-sky-900 text-sky-50 font-medium text-xs leading-tight rounded shadow-md hover:bg-sky-800 hover:shadow-lg focus:bg-sky-800 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-sky-700 active:shadow-lg transition duration-150 ease-in-out ml-1 cursor-pointer"
+              />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

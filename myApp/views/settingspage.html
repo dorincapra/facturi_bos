@@ -1,0 +1,418 @@
+<div class="flex justify-between items-center my-4 px-2">
+  <h1 class="text-lg font-semibold text-neutral-500 cursor-default">Setari</h1>
+</div>
+<form action="?page=addSetting" method="POST">
+  <div class="accordion" id="accordionExample5">
+    <div class="accordion-item bg-white border border-gray-200">
+      <h2 class="accordion-header mb-0" id="headingOne5">
+        <button
+          class="relative flex items-center w-full py-4 px-5 text-base text-neutral-50 text-left bg-sky-900 border-0 transition-all duration-150 focus:outline-none italic font-semibold hover:bg-sky-800"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#collapseOne5"
+          aria-expanded="true"
+          aria-controls="collapseOne5"
+        >
+          Date de facturare
+        </button>
+      </h2>
+      <div
+        id="collapseOne5"
+        class="accordion-collapse collapse show"
+        aria-labelledby="headingOne5"
+      >
+        <div class="accordion-body py-4 px-5">
+          <div class="bg-sky-50 rounded-md p-2">
+            <div class="flex flex-wrap">
+              <div
+                class="inline-block w-full lg:w-1/3 flex flex-col items-start justify-center p-2"
+              >
+                <label for="companyName" class="italic mb-1">Nume firma:</label
+                ><input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value="{{name}}"
+                  class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                />
+              </div>
+              <div
+                class="inline-block w-full lg:w-1/3 flex flex-col items-start justify-center p-2"
+              >
+                <label for="cui" class="italic mb-1">C.U.I. / C.I.F.:</label
+                ><input
+                  type="text"
+                  id="cui"
+                  name="cui"
+                  value={{cui}}
+                  class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                />
+              </div>
+              <div
+                class="inline-block w-full lg:w-1/3 flex flex-col items-start justify-center p-2"
+              >
+                <label for="nrRegCom" class="italic mb-1">Nr. Reg. Com.:</label
+                ><input
+                  type="text"
+                  id="j"
+                  name="j"
+                  value={{j}}
+                  class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                />
+              </div>
+              <div
+                class="inline-block w-full lg:w-1/3 flex flex-col items-start justify-center p-2"
+              >
+                <label for="sediuSocial" class="italic mb-1"
+                  >Sediu social:</label
+                ><input
+                  type="text"
+                  id="location"
+                  name="location"
+                  value="{{location}}"
+                  class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                />
+              </div>
+              <div
+                class="inline-block w-full lg:w-1/3 flex flex-col items-start justify-center p-2"
+              >
+                <label for="judet" class="italic mb-1">Judet:</label
+                ><input
+                  type="text"
+                  id="county"
+                  name="county"
+                  value="{{county}}"
+                  class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                >
+
+                </input>
+              </div>
+              <div
+                class="inline-block w-full lg:w-1/3 flex flex-col items-start justify-center p-2"
+              >
+                <label for="tara" class="italic mb-1">Tara:</label
+                ><select
+                  id="country"
+                  name="country"
+                  value="{{country}}"
+                  class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                >
+                  <option value="romania">Romania</option>
+                </select>
+              </div>
+              <div
+                class="inline-block w-full lg:w-1/3 flex flex-col items-start justify-center p-2"
+              >
+                <label for="cont" class="italic mb-1">Cont (IBAN):</label
+                ><input
+                  type="text"
+                  id="iban"
+                  name="iban"
+                  value={{iban}}
+                  class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                />
+              </div>
+              <div
+                class="inline-block w-full lg:w-1/3 flex flex-col items-start justify-center p-2"
+              >
+                <label for="bancaSucursala" class="italic mb-1"
+                  >Banca/Sucursala:</label
+                ><input
+                  type="text"
+                  id="bank"
+                  name="bank"
+                  value="{{bank}}"
+                  class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                />
+              </div>
+              <div
+                class="inline-block w-full lg:w-1/3 flex flex-col items-start justify-center p-2"
+              >
+                <label for="capitalSocial" class="italic mb-1"
+                  >Capital social:</label
+                ><input
+                  type="text"
+                  id="share_capital"
+                  name="share_capital"
+                  value={{share_capital}}
+                  class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item bg-white border border-gray-200">
+      <h2 class="accordion-header mb-0" id="headingTwo5">
+        <button
+          class="relative flex items-center w-full py-4 px-5 text-base text-neutral-50 text-left bg-sky-900 border-0 transition-all duration-150 focus:outline-none italic font-semibold hover:bg-sky-800"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#collapseTwo5"
+          aria-expanded="false"
+          aria-controls="collapseTwo5"
+        >
+          Setari generale
+        </button>
+      </h2>
+      <div
+        id="collapseTwo5"
+        class="accordion-collapse collapse"
+        aria-labelledby="headingTwo5"
+      >
+        <div class="accordion-body py-4 px-5">
+          <div class="bg-sky-50 rounded-md p-2">
+            <div class="flex flex-wrap">
+              <div class="w-full">
+                <div
+                  class="inline-block w-full lg:w-1/3 flex flex-col items-start justify-center p-2"
+                >
+                  <label for="cotaTva" class="italic mb-1"
+                    >Cota T.V.A. (%):</label
+                  ><input
+                    type="number"
+                    id="vat_rate"
+                    name="vat_rate"
+                    value="{{vat_rate}}"
+                    class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                  />
+                </div>
+              </div>
+              <div
+                class="inline-block w-full lg:w-1/3 flex flex-col items-start justify-center p-2"
+              >
+                <label for="serieFacturi" class="italic mb-1"
+                  >Serie facturi:</label
+                ><input
+                  type="text"
+                  id="invoice_series"
+                  name="invoice_series"
+                  value="{{invoice_series}}"
+                  class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                />
+              </div>
+              <div
+                class="inline-block w-full lg:w-1/3 flex flex-col items-start justify-center p-2"
+              >
+                <label for="numarDeLa" class="italic mb-1">Numar de la:</label
+                ><input
+                  type="number"
+                  id="invoice_start"
+                  name="invoice_start"
+                  value={{invoice_start}}
+                  class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                />
+              </div>
+              <div
+                class="inline-block w-full lg:w-1/3 flex flex-col items-start justify-center p-2"
+              >
+                <label for="panaLa" class="italic mb-1">Pana la:</label
+                ><input
+                  type="number"
+                  id="invoice_end"
+                  value={{invoice_end}}
+                  name="invoice_end"
+                  class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                />
+              </div>
+              <div
+                class="inline-block w-full lg:w-1/3 flex flex-col items-start justify-center p-2"
+              >
+                <label for="serieChitante" class="italic mb-1"
+                  >Serie chitante:</label
+                ><input
+                  type="text"
+                  id="receipt_series"
+                  value={{receipt_series}}
+                  name="receipt_series"
+                  class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                />
+              </div>
+              <div
+                class="inline-block w-full lg:w-1/3 flex flex-col items-start justify-center p-2"
+              >
+                <label for="numarDeLa" class="italic mb-1">Numar de la:</label
+                ><input
+                  type="number"
+                  id="receipt_start"
+                  value={{receipt_start}}
+                  name="receipt_start"
+                  class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                />
+              </div>
+              <div
+                class="inline-block w-full lg:w-1/3 flex flex-col items-start justify-center p-2"
+              >
+                <label for="panaLa" class="italic mb-1">Pana la:</label
+                ><input
+                  type="number"
+                  id="receipt_end"
+                  value={{receipt_end}}
+                  name="receipt_end"
+                  class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                />
+              </div>
+              <div
+                class="inline-block w-full flex flex-col items-start justify-center p-2"
+              >
+                <label for="observatii" class="italic mb-1">Observatii:</label
+                ><textarea
+                  type="number"
+                  id="observations"
+                  name="observations"
+                  class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                >{{observations}}</textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item bg-white border border-gray-200">
+      <h2 class="accordion-header mb-0" id="headingThree5">
+        <button
+          class="relative flex items-center w-full py-4 px-5 text-base text-neutral-50 text-left bg-sky-900 border-0 transition-all duration-150 focus:outline-none italic font-semibold hover:bg-sky-800"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#collapseThree5"
+          aria-expanded="false"
+          aria-controls="collapseThree5"
+        >
+          Date de contact
+        </button>
+      </h2>
+      <div
+        id="collapseThree5"
+        class="accordion-collapse collapse"
+        aria-labelledby="headingThree5"
+      >
+        <div class="accordion-body py-4 px-5">
+          <div class="bg-sky-50 rounded-md p-2">
+            <div class="flex flex-wrap">
+              <div
+                class="inline-block w-full flex flex-col items-start justify-center p-2"
+              >
+                <label for="adresaCorespondenta" class="italic mb-1"
+                  >Adresa de corespondenta:</label
+                ><textarea
+                  type="number"
+                  id="mailing_address"
+                  name="mailing_address"
+                  class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                >{{mailing_address}}</textarea>
+              </div>
+              <div
+                class="inline-block w-full lg:w-1/3 flex flex-col items-start justify-center p-2"
+              >
+                <label for="telefon" class="italic mb-1">Telefon:</label
+                ><input
+                  type="text"
+                  id="phone"
+                  name="phone"
+                  value={{phone}}
+                  class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                />
+              </div>
+              <div
+                class="inline-block w-full lg:w-1/3 flex flex-col items-start justify-center p-2"
+              >
+                <label for="fax" class="italic mb-1">Fax:</label
+                ><input
+                  type="text"
+                  id="fax"
+                  name="fax"
+                  value={{fax}}
+                  class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                />
+              </div>
+              <div
+                class="inline-block w-full lg:w-1/3 flex flex-col items-start justify-center p-2"
+              >
+                <label for="email" class="italic mb-1">Email:</label
+                ><input
+                  type="text"
+                  id="email"
+                  name="email"
+                  value="{{email}}"
+                  class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                />
+              </div>
+              <div
+                class="inline-block w-full lg:w-1/3 flex flex-col items-start justify-center p-2"
+              >
+                <label for="webPage" class="italic mb-1">Pagina web:</label
+                ><input
+                  type="text"
+                  id="web"
+                  name="web"
+                  value="{{web}}"
+                  class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                />
+              </div>
+              <div
+                class="inline-block w-full lg:w-1/3 flex flex-col items-start justify-center p-2"
+              >
+                <label for="contactPerson" class="italic mb-1"
+                  >Persoana de contact:</label
+                ><input
+                  type="text"
+                  id="person"
+                  name="person"
+                  value="{{person}}"
+                  class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                />
+              </div>
+              <div
+                class="inline-block w-full lg:w-1/3 flex flex-col items-start justify-center p-2"
+              >
+                <label for="contactPersonFunction" class="italic mb-1"
+                  >Functie pers. de contact:</label
+                ><input
+                  type="text"
+                  id="position"
+                  name="position"
+                  value="{{position}}"
+                  class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                />
+              </div>
+              <div
+                class="inline-block w-full lg:w-1/3 flex flex-col items-start justify-center p-2"
+              >
+                <label for="contactPersonPhone" class="italic mb-1"
+                  >Tel. mobil pers. de contact:</label
+                ><input
+                  type="text"
+                  id="mobile"
+                  name="mobile"
+                  value={{mobile}}
+                  class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                />
+              </div>
+              <div
+                class="inline-block w-full lg:w-1/3 flex flex-col items-start justify-center p-2"
+              >
+                <label for="contactPersonEmail" class="italic mb-1"
+                  >Email pers. de contact:</label
+                ><input
+                  type="text"
+                  id="emailp"
+                  name="emailp"
+                  value="{{emailp}}"
+                  class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="flex items-center justify-end">
+    <input
+      value="Salveaza"
+      type="submit"
+      class="inline-block px-6 py-2.5 bg-sky-900 text-sky-50 font-medium text-xs leading-tight rounded shadow-md hover:bg-sky-800 hover:shadow-lg focus:bg-sky-800 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-sky-700 active:shadow-lg transition duration-150 ease-in-out cursor-pointer my-4"
+    />
+  </div>
+</form>
