@@ -25,48 +25,56 @@ class ShowInvoicesController extends AppController
 
 
         $settings = new SettingsModel();
-        $invoices = $invoice->displayInvoices();
 
 
 
 
 
         //FILTERS
-        $q = "SELECT * FROM `invoices` WHERE 1";
 
-        if(isset($_POST['nrFactura'])||isset($_POST['emitedFrom'])||isset($_POST['emitedUntil'])||isset($_POST['invoiceStatus'])||isset($_POST['term_from'])||isset($_POST['term_until'])||isset($_POST['signed'])||isset($_POST['paidFrom'])||isset($_POST['paidUntil'])||isset($_POST['currency'])||isset($_POST['agent'])||isset($_POST['paid'])||isset($_POST['not_paid'])||isset($_POST['part_paid']))
+        if(isset($_POST['nrFactura'])||isset($_POST['emitedFrom'])||isset($_POST['emitedUntil'])||isset($_POST['invoiceStatus'])||isset($_POST['termFrom'])||isset($_POST['termUntil'])||isset($_POST['signed'])||isset($_POST['paidFrom'])||isset($_POST['paidUntil'])||isset($_POST['currency'])||isset($_POST['agent'])||isset($_POST['paid'])||isset($_POST['not_paid'])||isset($_POST['part_paid']))
         {
-          
-          // if(isset($_POST['nrFactura'])){
-          //   $q .= "AND `id` = " . $_POST['nrFactura'];
-          // }
+          $q = "SELECT * FROM `invoices` WHERE `id`> 1";
 
-          // if(isset($_POST['emitedFrom'])){
-          //   $q .= "AND `emitDate` <= " . $_POST['emitedFrom'];
-          // }
+          if($_POST['nrFactura']!= ""){
+            $q .= " AND `id` = " . $_POST['nrFactura'];
+          }
 
-          // if(isset($_POST['emitedUntil'])){
-          //   $q .= "AND `emitedUntil` >= " . $_POST['emitedUntil'];
-          // }
+          if($_POST['emitedFrom']!=""){
+          $emitedFrom = date('Ymd', strtotime($_POST['emitedFrom']));           
+          $q .= " AND `emitDate` >= " . $emitedFrom;
 
-          // if(isset($_POST['term_from'])){
-          //   $q .= "AND `due_date` >= " . $_POST['termFrom'];
-          // }
+          }
+
+          if($_POST['emitedUntil']!=""){
+            $emitedUntil = date('Ymd', strtotime($_POST['emitedUntil']));           
+            $q .= " AND `emitDate` <= " . $emitedUntil;
+          }
+
+          if($_POST['termFrom']!=""){
+            $term_from = date('Ymd', strtotime($_POST['termFrom']));           
+            $q .= " AND `due_date` >= " . $term_from;
+          }
   
-          // if(isset($_POST['term_until'])){
-          //   $q .= "AND `due_date` <= " . $_POST['term_until'];
-          // }
+          if($_POST['termUntil']!=""){
+            $term_until = date('Ymd', strtotime($_POST['termUntil']));           
+            $q .= " AND `due_date` <= " . $term_until;
+          }
 
           // if(isset($_POST['currency'])){
           //   $q .= "AND `currency` = " . $_POST['currency'];
           // }
 
           if(isset($_POST['agent'])){
-            $q .= "AND `agent` = " . $_POST['agent'];
+           $q .= " AND `agent` = '" . $_POST['agent'] ."'";
           }
 
+         // echo var_dump($q);
           $invoices = $invoice->filterInvoices($q);
+
           
+        } else {
+          $invoices = $invoice->displayInvoices();
         }
 
        
@@ -80,7 +88,7 @@ class ShowInvoicesController extends AppController
 
       foreach($agents as $agent){
         $data['agents'] .= " <li class=flex items-center w-full py-1 text-sm>
-        <input type=checkbox class=mr-1 />
+        <input type=radio name='agent' value = '". $agent[0] ."'   class=mr-1 />
         <p>". $agent[0] ."</p>
       </li>";
    

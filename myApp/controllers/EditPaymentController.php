@@ -15,8 +15,9 @@ class EditPaymentController extends AppController
         $invoice = new InvoicesModel();
 
 
-        $data['invoiceID'] = $_POST['invoiceID'];
-        $data['ammount'] = $_POST['ammount'];
+
+        $data["invoiceID"] = $_POST["invoiceID"];
+        $data["ammount"] = $_POST["ammount"];
 
 
         $invoiceDetails = $invoice->getInvoiceDetails($data['invoiceID']);
@@ -29,8 +30,8 @@ class EditPaymentController extends AppController
             $data['test'] = "a mers";
         } else $data['test'] = " n-a mers";
 
-        $content["content"] = $this->render(APP_PATH . VIEWS . 'test.html', $data);
-        echo $this->render(APP_PATH . VIEWS . 'boilerplate.html', $content);
+        sleep(1);
+        header("Location: ?page=invoices");
 }
 
 }

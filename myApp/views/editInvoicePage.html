@@ -19,12 +19,12 @@
             class="inline-block w-full lg:w-1/2 flex flex-col items-start justify-center p-2"
           >
           <label for="invoiceID" class="italic mb-1">Factura {{series}}</label>
-          <input disabled
+          <input readonly
           type="number" 
           id="invoiceID"
           name="invoiceID"    
           value={{invoiceID}}         
-          class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic">
+          class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"/>
 
             <label for="ammount" class="italic mb-1 mt-5">Suma:</label
             ><input
@@ -38,11 +38,10 @@
           <div
             class="inline-block w-full lg:w-1/2 flex items-end justify-start p-2"
           >
-            <button
-              class="inline-block px-4 py-1 bg-transparent text-sky-900 text-xs rounded hover:bg-sky-900 focus:ring-0 transition-all duration-150 hover:text-sky-50 border border-sky-900"
-            >
-              Save
-            </button>
+         
+            <input type="submit"
+            class="inline-block px-4 py-1 bg-transparent text-sky-900 text-xs rounded hover:bg-sky-900 focus:ring-0 transition-all duration-150 hover:text-sky-50 border border-sky-900"
+            value="Salveaza plata">
           </div>
         </div>
         <div class="p-2">
@@ -70,14 +69,29 @@
     </div>
     <div class="modal-body relative p-4 pt-7 text-sm">
       <div class="text-sm text-neutral-900">
-        <p><strong>Furnizor: </strong>BUSINESS OUTSOURCING SOLUTONS S.R.L.</p>
-        <p><strong>CIF: </strong>RO35723388</p>
-        <p><strong>Nr ord reg com: </strong>J40/2907/2016</p>
-        <p><strong>Sediul: </strong>Str. Nucului, Nr. 51, Sector 3</p>
-        <p><strong>Judet: </strong>Bucuresti</p>
-        <p><strong>Cont: </strong>RO32 RZBR 0000 0600 1844 0293</p>
-        <p><strong>Banca: </strong>Raiffeissen Bank</p>
-        <p><strong>Capital social: </strong>200</p>
+        <p style="margin: 4px 0">
+          <strong>Furnizor: </strong>{{settingsName}}
+          S.R.L. <br>
+          <strong>CIF: </strong>{{settingsCUI}}
+        </p>
+        <p style="margin: 4px 0">
+          <strong>Nr ord reg com: </strong>{{settingsJ}}
+        </p>
+        <p style="margin: 4px 0">
+          <strong>Sediu: </strong>{{settingsLocation}}
+        </p>
+        <p style="margin: 4px 0">
+          <strong>Judet: </strong>{{settingsCounty}}
+        </p>
+        <span p style="margin: 4px 0"
+          ><strong>Cont: </strong>{{settingsIBAN}}</span
+        >
+        <p style="margin: 4px 0">
+          <strong>Banca: </strong>{{settingsBank}}
+        </p>
+        <p style="margin: 4px 0">
+          <strong>Capital social: </strong>{{settingsCapital}}
+        </p>
       </div>
       <div>
         <div class="bg-sky-50 rounded-md my-4 pb-2">
