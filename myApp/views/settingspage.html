@@ -1,15 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+</html>
+
 <div class="flex justify-between items-center my-4 px-2">
   <h1 class="text-lg font-semibold text-neutral-500 cursor-default">Setari</h1>
 </div>
 <form action="?page=addSetting" method="POST">
-  <div class="accordion" id="accordionExample5">
-    <div class="accordion-item bg-white border border-gray-200">
-      <h2 class="accordion-header mb-0" id="headingOne5">
+  <div id="accordionExample5">
+    <div class="bg-white border border-gray-200">
+      <h2 class="mb-0" id="headingOne5">
         <button
           class="relative flex items-center w-full py-4 px-5 text-base text-neutral-50 text-left bg-sky-900 border-0 transition-all duration-150 focus:outline-none italic font-semibold hover:bg-sky-800"
           type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#collapseOne5"
+          data-te-collapse-init
+          data-te-target="#collapseOne5"
           aria-expanded="true"
           aria-controls="collapseOne5"
         >
@@ -18,10 +29,12 @@
       </h2>
       <div
         id="collapseOne5"
-        class="accordion-collapse collapse show"
+        class="!visible"
+        data-te-collapse-item
+        data-te-collapse-show
         aria-labelledby="headingOne5"
       >
-        <div class="accordion-body py-4 px-5">
+        <div class="py-4 px-5">
           <div class="bg-sky-50 rounded-md p-2">
             <div class="flex flex-wrap">
               <div
@@ -44,7 +57,7 @@
                   type="text"
                   id="cui"
                   name="cui"
-                  value={{cui}}
+                  value="{{cui}}"
                   class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
                 />
               </div>
@@ -56,7 +69,7 @@
                   type="text"
                   id="j"
                   name="j"
-                  value={{j}}
+                  value="{{j}}"
                   class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
                 />
               </div>
@@ -83,9 +96,7 @@
                   name="county"
                   value="{{county}}"
                   class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
-                >
-
-                </input>
+                />
               </div>
               <div
                 class="inline-block w-full lg:w-1/3 flex flex-col items-start justify-center p-2"
@@ -108,7 +119,7 @@
                   type="text"
                   id="iban"
                   name="iban"
-                  value={{iban}}
+                  value="{{iban}}"
                   class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
                 />
               </div>
@@ -134,7 +145,7 @@
                   type="text"
                   id="share_capital"
                   name="share_capital"
-                  value={{share_capital}}
+                  value="{{share_capital}}"
                   class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
                 />
               </div>
@@ -143,13 +154,14 @@
         </div>
       </div>
     </div>
-    <div class="accordion-item bg-white border border-gray-200">
-      <h2 class="accordion-header mb-0" id="headingTwo5">
+    <div class="bg-white border border-gray-200">
+      <h2 class="mb-0" id="headingTwo5">
         <button
           class="relative flex items-center w-full py-4 px-5 text-base text-neutral-50 text-left bg-sky-900 border-0 transition-all duration-150 focus:outline-none italic font-semibold hover:bg-sky-800"
           type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#collapseTwo5"
+          data-te-collapse-init
+          data-te-collapse-collapsed
+          data-te-target="#collapseTwo5"
           aria-expanded="false"
           aria-controls="collapseTwo5"
         >
@@ -158,10 +170,11 @@
       </h2>
       <div
         id="collapseTwo5"
-        class="accordion-collapse collapse"
+        class="!visible hidden"
+        data-te-collapse-item
         aria-labelledby="headingTwo5"
       >
-        <div class="accordion-body py-4 px-5">
+        <div class="py-4 px-5">
           <div class="bg-sky-50 rounded-md p-2">
             <div class="flex flex-wrap">
               <div class="w-full">
@@ -200,7 +213,7 @@
                   type="number"
                   id="invoice_start"
                   name="invoice_start"
-                  value={{invoice_start}}
+                  value="{{invoice_start}}"
                   class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
                 />
               </div>
@@ -211,7 +224,7 @@
                 ><input
                   type="number"
                   id="invoice_end"
-                  value={{invoice_end}}
+                  value="{{invoice_end}}"
                   name="invoice_end"
                   class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
                 />
@@ -224,7 +237,7 @@
                 ><input
                   type="text"
                   id="receipt_series"
-                  value={{receipt_series}}
+                  value="{{receipt_series}}"
                   name="receipt_series"
                   class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
                 />
@@ -236,7 +249,7 @@
                 ><input
                   type="number"
                   id="receipt_start"
-                  value={{receipt_start}}
+                  value="{{receipt_start}}"
                   name="receipt_start"
                   class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
                 />
@@ -248,7 +261,7 @@
                 ><input
                   type="number"
                   id="receipt_end"
-                  value={{receipt_end}}
+                  value="{{receipt_end}}"
                   name="receipt_end"
                   class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
                 />
@@ -262,20 +275,23 @@
                   id="observations"
                   name="observations"
                   class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
-                >{{observations}}</textarea>
+                >
+{{observations}}</textarea
+                >
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="accordion-item bg-white border border-gray-200">
-      <h2 class="accordion-header mb-0" id="headingThree5">
+    <div class="bg-white border border-gray-200">
+      <h2 class="mb-0" id="headingThree5">
         <button
           class="relative flex items-center w-full py-4 px-5 text-base text-neutral-50 text-left bg-sky-900 border-0 transition-all duration-150 focus:outline-none italic font-semibold hover:bg-sky-800"
           type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#collapseThree5"
+          data-te-collapse-init
+          data-te-collapse-collapsed
+          data-te-target="#collapseThree5"
           aria-expanded="false"
           aria-controls="collapseThree5"
         >
@@ -284,10 +300,11 @@
       </h2>
       <div
         id="collapseThree5"
-        class="accordion-collapse collapse"
+        class="!visible hidden"
+        data-te-collapse-item
         aria-labelledby="headingThree5"
       >
-        <div class="accordion-body py-4 px-5">
+        <div class="py-4 px-5">
           <div class="bg-sky-50 rounded-md p-2">
             <div class="flex flex-wrap">
               <div
@@ -300,7 +317,9 @@
                   id="mailing_address"
                   name="mailing_address"
                   class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
-                >{{mailing_address}}</textarea>
+                >
+{{mailing_address}}</textarea
+                >
               </div>
               <div
                 class="inline-block w-full lg:w-1/3 flex flex-col items-start justify-center p-2"
@@ -310,7 +329,7 @@
                   type="text"
                   id="phone"
                   name="phone"
-                  value={{phone}}
+                  value="{{phone}}"
                   class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
                 />
               </div>
@@ -322,7 +341,7 @@
                   type="text"
                   id="fax"
                   name="fax"
-                  value={{fax}}
+                  value="{{fax}}"
                   class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
                 />
               </div>
@@ -385,7 +404,7 @@
                   type="text"
                   id="mobile"
                   name="mobile"
-                  value={{mobile}}
+                  value="{{mobile}}"
                   class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
                 />
               </div>

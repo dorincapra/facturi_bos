@@ -44,8 +44,8 @@ class EditInvoiceFormController extends AppController
 
         $data['series'] = $detaliiFactura[0]['series'];
         $wrongEmitDate = $detaliiFactura[0]["emitDate"];
-        $data['emitDate'] = date("d-m-Y", strtotime($wrongEmitDate));
-        $data['dueDate'] = date("d-m-Y", strtotime($detaliiFactura[0]["due_date"]));
+        $data['emitDate'] = date("Y-m-d", strtotime($wrongEmitDate));
+        $data['dueDate'] = date("Y-m-d", strtotime($detaliiFactura[0]["due_date"]));
         $data['currency'] = strtoupper($detaliiFactura[0]["currency"]);
         $data['value'] = $detaliiFactura[0]['value'];
         $data['totalVAT'] = $detaliiFactura[0]['totalValue'] - $detaliiFactura[0]['value'];
@@ -65,6 +65,9 @@ class EditInvoiceFormController extends AppController
         $data['clientIBAN'] = $detaliiClient[0]["iban"];
         $data['clientBank'] = $detaliiClient[0]["bank"];
         $data['clientJudet'] = $detaliiClient[0]["judet"];
+        $data['contactPers'] = $detaliiClient[0]["contactPers"];
+        $data['phone'] = $detaliiClient[0]["phone"];
+        $data['email'] = $detaliiClient[0]["email"];
 
 
 

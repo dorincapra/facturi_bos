@@ -31,12 +31,17 @@ class AddUserController extends AppController
             //show "userul a fost adaugat cu success" for 3 sec 
             //then redirect to "Users" page
             $data['error'] = "a mers";
+
+            //cumva mesaj de oke
+            
         } else {
             //show "userul NU a fost adaugat, contacteaza developerul" for 3 sec 
             //then redirect to "Users" page
             $data['error'] = "n-a mers";
         }
-       }  
+       }  else {
+        //ceva mesaj de "acest user exista deja"
+       }
 
         sleep(2);
         header("Location: ?page=users");

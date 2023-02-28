@@ -16,7 +16,7 @@ class EditPaymentController extends AppController
 
 
 
-        $data["invoiceID"] = $_POST["invoiceID"];
+        $data["invoiceID"] = $_GET['id'];
         $data["ammount"] = $_POST["ammount"];
 
 

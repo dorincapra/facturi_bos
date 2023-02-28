@@ -1,0 +1,107 @@
+<div class="w-full lg:w-1/2 mx-auto">
+  <form action="?page=editeazaProdus&id={{invoiceID}}" method="POST">
+    <h1 class="text-lg font-semibold text-neutral-500 cursor-default">
+      Editeaza produse
+    </h1>
+    <div class="mt-4">
+      {{produse}}
+      <h1 class="text-lg font-semibold text-neutral-500 cursor-default my-4">
+        Adauga alte produse
+      </h1>
+      <div id="show_item" class="bg-sky-50 rounded-md">
+          <div class="inline-block w-full lg:w-1/4 flex flex-col items-start justify-start p-2">
+            <button type="button"
+              class="add_item_btn w-full py-0.5 px-2 text-sm border border-sky-900 rounded text-neutral-900 hover:text-neutral-50 hover:bg-sky-900 transition-all duration-150">
+              Adauga produs
+            </button>
+          </div>
+      </div>
+      <div class="flex items-center justify-end">
+        <input value="Submit" type="submit"
+          class="inline-block px-6 py-2.5 bg-sky-900 text-sky-50 font-medium text-xs leading-tight rounded shadow-md hover:bg-sky-800 hover:shadow-lg focus:bg-sky-800 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-sky-700 active:shadow-lg transition duration-150 ease-in-out ml-1 cursor-pointer mt-2" />
+      </div>
+    </div>
+  </form>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(".add_item_btn").click(function (e) {
+      e.preventDefault();
+      $("#show_item").prepend(`<div class="flex flex-wrap">
+                            <div
+                              class="inline-block w-full lg:w-1/2 flex flex-col items-start justify-start p-2"
+                            >
+                              <label for="itemName" class="italic mb-1 hidden"
+                                >Denumire:*</label
+                              ><textarea
+                                type="text"
+                                id="itemName"
+                                name="product_name[]"
+                                class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                                placeholder="Denumire*"
+                                rows="2"
+                                required
+                              ></textarea>
+                            </div>
+                            <div
+                              class="inline-block w-full lg:w-1/4 flex flex-col items-start justify-start p-2"
+                            >
+                              <label for="itemQty" class="italic mb-1 hidden"
+                                >Cant.:*</label
+                              ><input
+                                type="number"
+                                id="itemQty"
+                                name="product_qty[]"
+                                class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                                placeholder="Cantitate*"
+                                required
+                              />
+                            </div>
+                            <div
+                              class="inline-block w-full lg:w-1/4 flex flex-col items-start justify-start p-2"
+                            >
+                              <label for="itemPrice" class="italic mb-1 hidden"
+                                >Pret unit.:*</label
+                              ><input
+                                type="number"
+                                id="itemPrice"
+                                name="product_price[]"
+                                class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                                placeholder="Pret unitate*"
+                                required
+                              />
+                            </div>
+                            <div
+                              class="inline-block w-full lg:w-1/4 flex flex-col items-start justify-start p-2"
+                            >
+                              <label for="itemTva" class="italic mb-1 hidden"
+                                >T.V.A.:*</label
+                              ><input
+                                type="number"
+                                id="itemTva"
+                                name="product_vat[]"
+                                class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                                placeholder="T.V.A.*"
+                                required
+                              />
+                            </div>
+                            <div
+                              class="inline-block w-full lg:w-1/4 flex flex-col items-start justify-start p-2"
+                            >
+                             <button
+              			type="button"
+              			class="remove_item_btn w-full py-0.5 px-2 text-sm border border-red-900 rounded text-neutral-900 hover:text-neutral-50 hover:bg-red-900 transition-all duration-150"
+            			>
+             			 Sterge
+            			</button>
+                            </div>
+                          </div>`);
+    });
+    $(document).on("click", ".remove_item_btn", function (e) {
+      e.preventDefault();
+      let row_item = $(this).parent().parent();
+      $(row_item).remove();
+    });
+  });
+</script>

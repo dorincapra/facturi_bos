@@ -17,8 +17,14 @@ class HomeNAuthController extends AppController
         } else {
           header("Location: ?page=login");
         }
+
+        $setting = new SettingsModel();
+
+        $settings = $setting->getSettings();
+
+        $data['companyName'] = $settings[0]['name'];
         
-        $data["content"] = $this->render(APP_PATH.VIEWS.'homepage.html');
-        echo $this->render(APP_PATH.VIEWS.'boilerplate.html',$data);
+        $content["content"] = $this->render(APP_PATH.VIEWS.'homepage.html', $data);
+        echo $this->render(APP_PATH.VIEWS.'boilerplate.html',$content);
     }
 }

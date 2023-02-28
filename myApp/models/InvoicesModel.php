@@ -81,5 +81,17 @@ class InvoicesModel extends DBModel
         return $result->fetch_all();
     }
 
+    public function facturaPlatita($id){
+        $q = "UPDATE `invoices` SET `status` = 2, `last_payment_date` = CURRENT_DATE, `amm_paid` = `totalValue` WHERE `id` = $id";
+        $myPrep = $this->db()->prepare($q);
+        return $myPrep->execute();
+    }
+
+    public function updateInvoice($invoiceID, $value, $totalValue){
+        $q = "UPDATE `invoices` SET `value` = $value, `totalValue` = $totalValue WHERE `id` = $invoiceID";
+        $myPrep = $this->db()->prepare($q);
+        return $myPrep->execute();
+    }
+
 
 }

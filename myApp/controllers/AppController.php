@@ -25,7 +25,10 @@ class AppController
                             'editInvoice' => 'EditInvoiceController',
                             'editPayment'=> 'EditPaymentController',
                             'editClient' => 'EditClientController',
-                            'delClient' => 'DeleteClientController'
+                            'delClient' => 'DeleteClientController',
+                            'editeazaProdusForm' => 'EditeazaProdusFormController',
+                            'facturaPlatita' => 'FacturaPlatitaController',
+                            'editeazaProdus' => 'EditeazaProdusController'
                             
                         ];
 

@@ -46,6 +46,14 @@ class ItemsModel extends DBModel
             ]);
         }
     }
+
+
+
+    public function deleteItemsFromInvoice($invoiceID){
+        $q = "DELETE from `items` WHERE `invoiceID` = $invoiceID";
+        $myPrep = $this->db()->prepare($q);
+        return $myPrep->execute();
+    }
    
 
 }

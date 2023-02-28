@@ -35,18 +35,18 @@ class ShowUsersController extends AppController
 
 
                 $data["usersTableContent"] .= "<tr class=' hover:bg-sky-200 bg-white even:bg-sky-50 border-b mx-20 text-neutral-900 hover:bg-sky-200'>
-                <td class='px-6 py-2 whitespace-nowrap'>" . $user['name'] . "</td>
-                <td class='px-6 py-2 whitespace-nowrap'>" . $user['phone'] . "</td>
-                <td class='px-6 py-2 whitespace-nowrap'>" . $user['email'] . "</td>
-                <td class='px-6 py-2 whitespace-nowrap'>" . $user['level'] . "</td>
-                <td class='px-6 py-2 whitespace-nowrap'>
+                <td class='px-6 py-2 whitespace-nowrap text-center'>" . $user['name'] . "</td>
+                <td class='px-6 py-2 whitespace-nowrap text-center'>" . $user['phone'] . "</td>
+                <td class='px-6 py-2 whitespace-nowrap text-center'>" . $user['email'] . "</td>
+                <td class='px-6 py-2 whitespace-nowrap text-center'>" . $user['level'] . "</td>
+                <td class='px-6 py-2 whitespace-nowrap text-center'>
                   <button type='button' class='bg-sky-100 px-3 rounded-md group'>
                     <i
                       class='fa-solid fa-pen-to-square text-sky-900 text-lg group-hover:text-orange-600 transition-all duration-150'
                     ></i>
                   </button>
                 </td>
-                <td class='px-6 py-2 whitespace-nowrap'>
+                <td class='px-6 py-2 whitespace-nowrap text-center'>
                   <a href='?page=delUser&id=" .$user['id'] . "' type='button' class='bg-sky-100 px-3 rounded-md group'>
                     <i class='fa-sharp fa-solid fa-trash text-sky-900 text-lg
                     group-hover:text-orange-600 transition-all duration-150'
