@@ -11,7 +11,7 @@ class EditPaymentController extends AppController
     {
 
 
-      
+
         $invoice = new InvoicesModel();
 
 
@@ -26,12 +26,19 @@ class EditPaymentController extends AppController
         $newAmmountPaid = $oldAmmountPaid + $data['ammount'];
 
 
-        if($invoice->payment($data['invoiceID'], $newAmmountPaid)){
-            $data['test'] = "a mers";
+        if ($invoice->payment($data['invoiceID'], $newAmmountPaid)) {
+            if ($invoiceDetails[0]['totalValue'] > $newAmmountPaid && $newAmmountPaid > 0) {
+                $invoice->correctStatus($data['invoiceID'], 3);
+            } else if ($invoiceDetails[0]['totalValue'] == $newAmmountPaid && $invoiceDetails[0]['totalValue'] < $newAmmountPaid) {
+                $invoice->correctStatus($data['invoiceID'], 2);
+            }
         } else $data['test'] = " n-a mers";
+
 
         sleep(1);
         header("Location: ?page=invoices");
-}
 
+
+      
+    }
 }

@@ -70,8 +70,6 @@ class EditeazaProdusController extends AppController
 
        $content["content"] = $this->render(APP_PATH.VIEWS.'test.html',$data);
        echo $this->render(APP_PATH.VIEWS.'boilerplate.html',$content);
-
-       
 }
 
 }

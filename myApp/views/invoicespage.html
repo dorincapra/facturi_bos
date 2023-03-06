@@ -1,661 +1,395 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Facturi</title>
-    <style>
-      #itemsTable tbody td {
-        text-align: left;
-        padding-left: 1.6rem;
-      }
-    </style>
-  </head>
-  <body>
-    <div>
-      <div class="flex justify-between items-center my-4 px-2">
-        <h1 class="text-lg font-semibold text-neutral-500 cursor-default">
-          Facturi emise
-        </h1>
-        <button
-          class="border rounded-md py-1 px-2 bg-sky-900 text-neutral-50 text-sm font-semibold border-sky-900 hover:text-orange-600 transition-all duration-150"
-          data-bs-toggle="modal"
-          data-bs-target="#scrollableModal"
-        >
-          Emite factura
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Facturi</title>
+  <style>
+    #itemsTable tbody td {
+      text-align: left;
+      padding-left: 1.6rem;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+  <div>
+    <div class="flex justify-between items-center my-4 px-2">
+      <h1 class="text-lg font-semibold text-neutral-500 cursor-default">
+        Facturi emise
+      </h1>
+      <button
+        class="border rounded-md py-1 px-2 bg-sky-900 text-neutral-50 text-sm font-semibold border-sky-900 hover:text-orange-600 transition-all duration-150"
+        data-bs-toggle="modal" data-bs-target="#scrollableModal">
+        Emite factura
+      </button>
+    </div>
+    <div class="flex flex-col items-start mb-1 rounded-md">
+      <div class="p-2">
+        <button id="filterBtn" type="button"
+          class="border rounded-md py-1 px-3 text-neutral-900 text-xs font-semibold border-sky-900 transition-all duration-150 hover:bg-sky-100">
+          Filtreaza
         </button>
       </div>
-      <div class="flex flex-col items-start mb-1 rounded-md">
-        <div class="p-2">
-          <button
-            id="filterBtn"
-            type="button"
-            class="border rounded-md py-1 px-3 text-neutral-900 text-xs font-semibold border-sky-900 transition-all duration-150 hover:bg-sky-100"
-          >
-            Filtreaza
+      <form id="filtersContainer" class="hidden flex flex-col w-full bg-sky-50 rounded-md" action="?page=invoices"
+        method="POST">
+        <div class="flex flex-wrap">
+          <div class="inline-block w-full lg:w-1/2 flex flex-col items-start justify-center p-2">
+            <label for="nrFactura" class="italic mb-1 text-sm">Numar factura:</label><input type="text" id="nrFactura"
+              name="nrFactura"
+              class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic" />
+          </div>
+          <div class="inline-block w-full lg:w-1/2 flex flex-col items-start justify-center p-2">
+            <label for="client" class="italic mb-1 text-sm">Client:</label><input type="text" id="client" name="client"
+              class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic" />
+          </div>
+        </div>
+        <div class="flex flex-wrap">
+          <div class="flex flex-col w-full lg:w-2/3">
+            <div class="flex flex-wrap">
+              <div class="w-full lg:w-1/3 p-2 flex flex-col items-start justify-center">
+                <label for="emitedFrom" class="italic mb-1 text-sm">Data emitere de la:</label><input type="date"
+                  id="emitedFrom" name="emitedFrom" class="w-1/2 py-0.5 px-2 text-sm" />
+              </div>
+              <div class="w-full lg:w-1/3 p-2 flex flex-col items-start justify-center">
+                <label for="emitedUntil" class="italic mb-1 text-sm">pana la:</label><input type="date" id="emitedUntil"
+                  name="emitedUntil" class="w-1/2 py-0.5 px-2 text-sm" />
+              </div>
+            </div>
+            <div class="flex flex-wrap">
+              <div class="w-full lg:w-1/3 p-2 flex flex-col items-start justify-center">
+                <label for="termFrom" class="italic mb-1 text-sm">Scadenta de la:</label><input type="date"
+                  id="termFrom" name="termFrom" class="w-1/2 py-0.5 px-2 text-sm" />
+              </div>
+              <div class="w-full lg:w-1/3 p-2 flex flex-col items-start justify-center">
+                <label for="termUntil" class="italic mb-1 text-sm">Pana la:</label><input type="date" id="termUntil"
+                  name="termUntil" class="w-1/2 py-0.5 px-2 text-sm" />
+              </div>
+            </div>
+          </div>
+          <div class="flex flex-wrap w-full lg:w-1/3">
+            <div class="w-1/2 p-2">
+              <p class="italic mb-1 text-sm">Agent:</p>
+              <div>
+                <ul>
+                  {{agents}}
+                </ul>
+              </div>
+            </div>
+            <div class="w-1/2 p-2">
+              <p class="italic mb-1 text-sm">Status plati:</p>
+              <div>
+                <ul>
+                  <li class="flex items-center w-full py-1 text-sm">
+                    <input type="radio" name="status" value="1" class="mr-1" />
+                    <p>Neplatite</p>
+                  </li>
+                  <li class="flex items-center w-full py-1 text-sm">
+                    <input type="radio" name="status" value="2" class="mr-1" />
+                    <p>Platite</p>
+                  </li>
+                  <li class="flex items-center w-full py-1 text-sm">
+                    <input type="radio" name="status" value="3" class="mr-1" />
+                    <p>Partial platite</p>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="flex justify-start p-2">
+          <button type="submit"
+            class="border rounded-md py-1 px-2 text-sky-900 text-sm font-semibold border-sky-900 hover:bg-sky-100 transition-all duration-150 mr-1">
+            Aplica</button><button type="button"
+            class="border rounded-md py-1 px-2 text-sky-900 text-sm font-semibold border-orange-600 hover:bg-orange-100 transition-all duration-150">
+            Reseteaza
           </button>
         </div>
-        <form
-          id="filtersContainer"
-          class="hidden flex flex-col w-full bg-sky-50 rounded-md"
-          action="?page=invoices"
-          method="POST"
-        >
-          <div class="flex flex-wrap">
-            <div
-              class="inline-block w-full lg:w-1/2 flex flex-col items-start justify-center p-2"
-            >
-              <label for="nrFactura" class="italic mb-1 text-sm"
-                >Numar factura:</label
-              ><input
-                type="text"
-                id="nrFactura"
-                name="nrFactura"
-                class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
-              />
-            </div>
-            <div
-              class="inline-block w-full lg:w-1/2 flex flex-col items-start justify-center p-2"
-            >
-              <label for="client" class="italic mb-1 text-sm">Client:</label
-              ><input
-                type="text"
-                id="client"
-                name="client"
-                class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
-              />
-            </div>
-          </div>
-          <div class="flex flex-wrap">
-            <div class="flex flex-col w-full lg:w-2/3">
-              <div class="flex flex-wrap">
-                <div
-                  class="w-full lg:w-1/3 p-2 flex flex-col items-start justify-center"
-                >
-                  <label for="emitedFrom" class="italic mb-1 text-sm"
-                    >Data emitere de la:</label
-                  ><input
-                    type="date"
-                    id="emitedFrom"
-                    name="emitedFrom"
-                    class="w-1/2 py-0.5 px-2 text-sm"
-                  />
-                </div>
-                <div
-                  class="w-full lg:w-1/3 p-2 flex flex-col items-start justify-center"
-                >
-                  <label for="emitedUntil" class="italic mb-1 text-sm"
-                    >pana la:</label
-                  ><input
-                    type="date"
-                    id="emitedUntil"
-                    name="emitedUntil"
-                    class="w-1/2 py-0.5 px-2 text-sm"
-                  />
-                </div>
-                <div
-                  class="w-full lg:w-1/3 p-2 flex flex-col items-start justify-center"
-                >
-                  <label for="invoiceStatus" class="italic mb-1 text-sm"
-                    >Status factura:</label
-                  ><select
-                    type="date"
-                    id="invoiceStatus"
-                    class="w-1/2 py-0.5 px-2 text-sm"
-                  >
-                    <option value="">---</option>
-                  </select>
-                </div>
-              </div>
-              <div class="flex flex-wrap">
-                <div
-                  class="w-full lg:w-1/3 p-2 flex flex-col items-start justify-center"
-                >
-                  <label for="termFrom" class="italic mb-1 text-sm"
-                    >Scadenta de la:</label
-                  ><input
-                    type="date"
-                    id="termFrom"
-                    name="termFrom"
-                    class="w-1/2 py-0.5 px-2 text-sm"
-                  />
-                </div>
-                <div
-                  class="w-full lg:w-1/3 p-2 flex flex-col items-start justify-center"
-                >
-                  <label for="termUntil" class="italic mb-1 text-sm"
-                    >Pana la:</label
-                  ><input
-                    type="date"
-                    id="termUntil"
-                    name="termUntil"
-                    class="w-1/2 py-0.5 px-2 text-sm"
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="flex flex-wrap w-full lg:w-1/3">
-              <div class="w-1/2 p-2">
-                <p class="italic mb-1 text-sm">Agent:</p>
-                <div>
-                  <ul>
-                    {{agents}}
-                  </ul>
-                </div>
-              </div>
-              <div class="w-1/2 p-2">
-                <p class="italic mb-1 text-sm">Status plati:</p>
-                <div>
-                  <ul>
-                    <li class="flex items-center w-full py-1 text-sm">
-                      <input type="checkbox" class="mr-1" />
-                      <p>Neplatite</p>
-                    </li>
-                    <li class="flex items-center w-full py-1 text-sm">
-                      <input type="checkbox" class="mr-1" />
-                      <p>Platite</p>
-                    </li>
-                    <li class="flex items-center w-full py-1 text-sm">
-                      <input type="checkbox" class="mr-1" />
-                      <p>Partial platite</p>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="flex justify-start p-2">
-            <button
-              type="submit"
-              class="border rounded-md py-1 px-2 text-sky-900 text-sm font-semibold border-sky-900 hover:bg-sky-100 transition-all duration-150 mr-1"
-            >
-              Aplica</button
-            ><button
-              type="button"
-              class="border rounded-md py-1 px-2 text-sky-900 text-sm font-semibold border-orange-600 hover:bg-orange-100 transition-all duration-150"
-            >
-              Reseteaza
-            </button>
-          </div>
-        </form>
+      </form>
+    </div>
+    <div class="bg-sky-900 rounded-md">
+      <div class="py-4 pl-2">
+        <label for="cautare" class="mr-2 text-sm italic font-semibold hidden">Cautare:</label><input type="text"
+          id="cautare"
+          class="rounded-xl outline-none px-2 py-0.5 text-sm placeholder:italic placeholder:text-sm placeholder:text-neutral-400 placeholder:border-0"
+          placeholder="Cauta..." />
       </div>
-      <div class="bg-sky-900 rounded-md">
-        <div class="py-4 pl-2">
-          <label for="search" class="mr-2 text-sm italic font-semibold hidden"
-            >Cautare:</label
-          ><input
-            type="text"
-            id="search"
-            class="rounded-xl outline-none px-2 py-0.5 text-sm placeholder:italic placeholder:text-sm placeholder:text-neutral-400 placeholder:border-0"
-            placeholder="Cauta..."
-          />
-        </div>
-        <div class="flex flex-col mb-4">
-          <table class="cursor-default text-neutral-900 mb-1">
-            <thead class="bg-orange-600 border-b text-neutral-50 text-xs">
-              <tr>
-                <th scope="col" class="px-2 py-2 center">Print</th>
-                <th scope="col" class="px-2 py-2 center">Data emitere</th>
-                <th scope="col" class="px-2 py-2 center">Serie si nr.</th>
-                <th scope="col" class="px-2 py-2 center hidden lg:table-cell">
-                  Client
-                </th>
-                <th scope="col" class="px-2 py-2 center hidden lg:table-cell">
-                  Valoare
-                </th>
+      <div class="flex flex-col mb-4">
+        <table class="cursor-default text-neutral-900 mb-1">
+          <thead class="bg-orange-600 border-b text-neutral-50 text-xs">
+            <tr>
+              <th scope="col" class="px-2 py-2 center">Print</th>
+              <th scope="col" class="px-2 py-2 center">Data emitere</th>
+              <th scope="col" class="px-2 py-2 center">Serie si nr.</th>
+              <th scope="col" class="px-2 py-2 center hidden lg:table-cell">
+                Client
+              </th>
+              <th scope="col" class="px-2 py-2 center hidden lg:table-cell">
+                Valoare
+              </th>
 
-                <th scope="col" class="px-2 py-2 center hidden lg:table-cell">
-                  Total
-                </th>
-                <th scope="col" class="px-2 py-2 center hidden lg:table-cell">
-                  Moneda
-                </th>
-                <th scope="col" class="px-2 py-2 center hidden lg:table-cell">
-                  Status
-                </th>
-                <th scope="col" class="px-2 py-2 text-center">Editeaza</th>
-              </tr>
-            </thead>
-            <tbody class="text-xs">
-              {{invoicesTableContent}}
-            </tbody>
-          </table>
-        </div>
+              <th scope="col" class="px-2 py-2 center hidden lg:table-cell">
+                Total
+              </th>
+              <th scope="col" class="px-2 py-2 center hidden lg:table-cell">
+                Moneda
+              </th>
+              <th scope="col" class="px-2 py-2 center hidden lg:table-cell">
+                Status
+              </th>
+              <th scope="col" class="px-2 py-2 text-center">Editeaza</th>
+            </tr>
+          </thead>
+          <tbody class="text-xs">
+            {{invoicesTableContent}}
+          </tbody>
+        </table>
+
       </div>
-      <div
-        class="modal fade fixed top-0 left-0 hidden w-full h-full outline-none overflow-x-hidden overflow-y-auto"
-        id="scrollableModal"
-        tabindex="-1"
-        aria-labelledby="exampleModalCenteredScrollable"
-        aria-modal="true"
-        role="dialog"
-      >
+    </div>
+    <div class="modal fade fixed top-0 left-0 hidden w-full h-full outline-none overflow-x-hidden overflow-y-auto"
+      id="scrollableModal" tabindex="-1" aria-labelledby="exampleModalCenteredScrollable" aria-modal="true"
+      role="dialog">
+      <div class="w-full lg:pointer-events-none flex items-center justify-center mt-14">
         <div
-          class="w-full lg:pointer-events-none flex items-center justify-center mt-14"
-        >
+          class="modal-lg modal-dialog modal-dialog-centered modal-dialog-scrollable relative w-full pointer-events-none">
           <div
-            class="modal-lg modal-dialog modal-dialog-centered modal-dialog-scrollable relative w-full pointer-events-none"
-          >
-            <div
-              class="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current"
-            >
-              <form class="mt-2" action="?page=addInv" method="POST">
-                <div
-                  class="modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-neutral-200 rounded-t-md"
-                >
-                  <h5
-                    class="text-xl font-medium leading-normal text-neutral-800"
-                    id="scrollableModal"
-                  >
-                    Genereaza factura
-                  </h5>
-                  <button
-                    type="button"
-                    class="btn-close box-content w-4 h-4 p-1 text-neutral-900 border-none rounded-none focus:shadow-none focus:outline-none focus:opacity-100 hover:text-black hover:opacity-75 hover:no-underline"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                  >
-                    <i class="fa-solid fa-xmark text-xl"></i>
-                  </button>
+            class="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
+            <form class="mt-2" action="?page=addInv" method="POST">
+              <div
+                class="modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-neutral-200 rounded-t-md">
+                <h5 class="text-xl font-medium leading-normal text-neutral-800" id="scrollableModal">
+                  Genereaza factura
+                </h5>
+                <button type="button"
+                  class="btn-close box-content w-4 h-4 p-1 text-neutral-900 border-none rounded-none focus:shadow-none focus:outline-none focus:opacity-100 hover:text-black hover:opacity-75 hover:no-underline"
+                  data-bs-dismiss="modal" aria-label="Close">
+                  <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+              </div>
+              <div class="modal-body relative p-4 text-sm">
+                <div class="text-sm text-neutral-900">
+                  <p><strong>Furnizor: </strong>{{furnizor}}</p>
+                  <p><strong>CIF: </strong>{{cuiFurnizor}}</p>
+                  <p><strong>Nr ord reg com: </strong>{{jFurnizor}}</p>
+                  <p><strong>Sediu: </strong>{{adresaFurnizor}}</p>
+                  <p><strong>Judet: </strong>{{orasFurnizor}}</p>
+                  <p><strong>Cont: </strong>{{ibanFurnizor}}</p>
+                  <p><strong>Banca: </strong>{{bancaFurnizor}}</p>
                 </div>
-                <div class="modal-body relative p-4 text-sm">
-                  <div class="text-sm text-neutral-900">
-                    <p><strong>Furnizor: </strong>{{furnizor}}</p>
-                    <p><strong>CIF: </strong>{{cuiFurnizor}}</p>
-                    <p><strong>Nr ord reg com: </strong>{{jFurnizor}}</p>
-                    <p><strong>Sediu: </strong>{{adresaFurnizor}}</p>
-                    <p><strong>Judet: </strong>{{orasFurnizor}}</p>
-                    <p><strong>Cont: </strong>{{ibanFurnizor}}</p>
-                    <p><strong>Banca: </strong>{{bancaFurnizor}}</p>
-                  </div>
-                  <div>
-                    <div class="bg-sky-50 rounded-md my-4 pb-2">
-                      <div class="p-2">
-                        <h2
-                          class="italic font-semibold text-neutral-900 underline"
-                        >
-                          Factura fiscala:
-                        </h2>
+                <div>
+                  <div class="bg-sky-50 rounded-md my-4 pb-2">
+                    <div class="p-2">
+                      <h2 class="italic font-semibold text-neutral-900 underline">
+                        Factura fiscala:
+                      </h2>
+                    </div>
+                    <div class="flex flex-wrap">
+                      <div class="inline-block w-full lg:w-1/4 flex flex-col items-start justify-center p-2">
+                        <label for="serie" class="italic mb-1">Seria:</label><input type="text" id="series"
+                          name="series" value="BOS"
+                          class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                          required />
                       </div>
-                      <div class="flex flex-wrap">
-                        <div
-                          class="inline-block w-full lg:w-1/4 flex flex-col items-start justify-center p-2"
-                        >
-                          <label for="serie" class="italic mb-1">Seria:</label
-                          ><input
-                            type="text"
-                            id="series"
-                            name="series"
-                            value="BOS"
-                            class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
-                            required
-                          />
-                        </div>
-                        <div
-                          class="inline-block w-full lg:w-1/4 flex flex-col items-start justify-center p-2"
-                        >
-                          <label for="nrFactura" class="italic mb-1"
-                            >Nr. factura:</label
-                          ><input
-                            type="text"
-                            id="number"
-                            name="number"
-                            value="003257"
-                            class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
-                            required
-                          />
-                        </div>
-                        <div
-                          class="inline-block w-full lg:w-1/4 flex flex-col items-start justify-center p-2"
-                        >
-                          <label for="data" class="italic mb-1"
-                            >Data emiterii:</label
-                          ><input
-                            type="date"
-                            id="emitDate"
-                            name="emitDate"
-                            value="2022-12-26"
-                            class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
-                            required
-                          />
-                        </div>
-                        <div
-                          class="inline-block w-1/2 lg:w-1/4 flex flex-col items-start justify-center p-2"
-                        >
-                          <label for="currency" class="italic mb-1"
-                            >Moneda:</label
-                          ><select
-                            id="currency"
-                            name="currency"
-                            class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
-                            required
-                          >
-                            <option value="ron" selected>RON</option>
-                            <!-- <option value="eur" selected>EUR</option>
+                      <div class="inline-block w-full lg:w-1/4 flex flex-col items-start justify-center p-2">
+                        <label for="nrFactura" class="italic mb-1">Nr. factura:</label><input type="text" id="number"
+                          name="number" value="003257"
+                          class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                          required />
+                      </div>
+                      <div class="inline-block w-full lg:w-1/4 flex flex-col items-start justify-center p-2">
+                        <label for="data" class="italic mb-1">Data emiterii:</label><input type="date" id="emitDate"
+                          name="emitDate" value="2022-12-26"
+                          class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                          required />
+                      </div>
+                      <div class="inline-block w-1/2 lg:w-1/4 flex flex-col items-start justify-center p-2">
+                        <label for="currency" class="italic mb-1">Moneda:</label><select id="currency" name="currency"
+                          class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                          required>
+                          <option value="ron" selected>RON</option>
+                          <!-- <option value="eur" selected>EUR</option>
                             <option value="usd" selected>USD</option> -->
-                          </select>
-                        </div>
+                        </select>
                       </div>
                     </div>
-                    <div class="bg-sky-50 rounded-md my-4 pb-2">
-                      <div class="p-2">
-                        <h2
-                          class="italic font-semibold text-neutral-900 underline"
-                        >
-                          Client:
-                        </h2>
+                  </div>
+                  <div class="bg-sky-50 rounded-md my-4 pb-2">
+                    <div class="p-2">
+                      <h2 class="italic font-semibold text-neutral-900 underline">
+                        Client:
+                      </h2>
+                    </div>
+                    <div class="flex flex-wrap">
+                      <div class="wrapper inline-block w-full flex flex-col items-start justify-center p-2">
+                        <div
+                          class="select-btn w-full p-2 cursor-pointer flex items-center justify-between bg-white rounded-md">
+                          <span>Select Client</span>
+                          <i class="transition-all duration-300 fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="content hidden p-2 w-full bg-white rounded-md mt-1">
+                          <div class="cautare relative">
+                            <i class="fa-sharp fa-solid fa-magnifying-glass absolute top-2 left-2 text-neutral-500"></i>
+                            <input type="text" placeholder="cauta" id="existentClient" name="existentClient"
+                              class="w-full border border-neutral-200 py-1 px-8 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic rounded-md" />
+                          </div>
+                          <ul class="options p-2 mt-1 max-h-64 overflow-y-auto"></ul>
+                        </div>
                       </div>
-                      <div class="flex flex-wrap">
-                        <div
-                          class="wrapper inline-block w-full flex flex-col items-start justify-center p-2"
-                        >
-                          <div
-                            class="select-btn w-full p-2 cursor-pointer flex items-center justify-between bg-white rounded-md"
-                          >
-                            <span>Select Client</span>
-                            <i
-                              class="transition-all duration-300 fa-solid fa-chevron-down"
-                            ></i>
-                          </div>
-                          <div
-                            class="content hidden p-2 w-full bg-white rounded-md mt-1"
-                          >
-                            <div class="search relative">
-                              <i
-                                class="fa-sharp fa-solid fa-magnifying-glass absolute top-2 left-2 text-neutral-500"
-                              ></i>
-                              <input
-                                type="text"
-                                placeholder="Search"
-                                class="w-full border border-neutral-200 py-1 px-8 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic rounded-md"
-                              />
-                            </div>
-                            <ul
-                              class="options p-2 mt-1 max-h-64 overflow-y-auto"
-                            ></ul>
-                          </div>
-                        </div>
-                        <div
-                          class="inline-block w-full lg:w-1/2 flex flex-col items-start justify-center p-2"
-                        >
-                          <label for="clientName" class="italic mb-1"
-                            >Nume firma:</label
-                          ><input
-                            type="text"
-                            id="clientName"
-                            name="clientName"
-                            class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
-                            required
-                          />
-                        </div>
-                        <div
-                          class="inline-block w-full lg:w-1/2 flex flex-col items-start justify-center p-2"
-                        >
-                          <label for="cuiCif" class="italic mb-1"
-                            >CUI / CIF:</label
-                          ><input
-                            type="text"
-                            id="clientCUI"
-                            name="clientCUI"
-                            class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
-                            required
-                          />
-                        </div>
-                        <div
-                          class="inline-block w-full lg:w-1/2 flex flex-col items-start justify-center p-2"
-                        >
-                          <label for="nrRegCom" class="italic mb-1"
-                            >Nr. reg. com.:</label
-                          ><input
-                            type="text"
-                            id="clientJ"
-                            name="clientJ"
-                            class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
-                            required
-                          />
-                        </div>
-                        <div
-                          class="inline-block w-full lg:w-1/2 flex flex-col items-start justify-center p-2"
-                        >
-                          <label for="socialPlace" class="italic mb-1"
-                            >Sediu social:</label
-                          ><input
-                            type="text"
-                            id="clientLocation"
-                            name="clientLocation"
-                            class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
-                            required
-                          />
-                        </div>
-                        <div
-                          class="inline-block w-full lg:w-1/2 flex flex-col items-start justify-center p-2"
-                        >
-                          <label for="account" class="italic mb-1"
-                            >Cont (IBAN):</label
-                          ><input
-                            type="text"
-                            id="clientIBAN"
-                            name="clientIBAN"
-                            value="BOS"
-                            class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
-                            required
-                          />
-                        </div>
-                        <div
-                          class="inline-block w-full lg:w-1/2 flex flex-col items-start justify-center p-2"
-                        >
-                          <label for="bank" class="italic mb-1"
-                            >Contact person:</label
-                          ><input
-                            type="text"
-                            id="clientContactP"
-                            name="clientContactP"
-                            value="BOS"
-                            class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
-                            required
-                          />
-                        </div>
-                        <div
-                          class="inline-block w-full lg:w-1/2 flex flex-col items-start justify-center p-2"
-                        >
-                          <label for="bank" class="italic mb-1">Telefon:</label
-                          ><input
-                            type="text"
-                            id="clientPhone"
-                            name="clientPhone"
-                            class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
-                            required
-                          />
-                        </div>
-                        <div
-                          class="inline-block w-full lg:w-1/2 flex flex-col items-start justify-center p-2"
-                        >
-                          <label for="bank" class="italic mb-1">Email:</label
-                          ><input
-                            type="text"
-                            id="clientEmail"
-                            name="clientEmail"
-                            class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
-                            required
-                          />
-                        </div>
+                      <div class="inline-block w-full lg:w-1/2 flex flex-col items-start justify-center p-2">
+                        <label for="clientName" class="italic mb-1">Nume firma:</label><input type="text"
+                          id="clientName" name="clientName"
+                          class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                           />
+                      </div>
+                      <div class="inline-block w-full lg:w-1/2 flex flex-col items-start justify-center p-2">
+                        <label for="cuiCif" class="italic mb-1">CUI / CIF:</label><input type="text" id="clientCUI"
+                          name="clientCUI"
+                          class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                           />
+                      </div>
+                      <div class="inline-block w-full lg:w-1/2 flex flex-col items-start justify-center p-2">
+                        <label for="nrRegCom" class="italic mb-1">Nr. reg. com.:</label><input type="text" id="clientJ"
+                          name="clientJ"
+                          class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                           />
+                      </div>
+                      <div class="inline-block w-full lg:w-1/2 flex flex-col items-start justify-center p-2">
+                        <label for="socialPlace" class="italic mb-1">Sediu social:</label><input type="text"
+                          id="clientLocation" name="clientLocation"
+                          class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                           />
+                      </div>
+                      <div class="inline-block w-full lg:w-1/2 flex flex-col items-start justify-center p-2">
+                        <label for="account" class="italic mb-1">Cont (IBAN):</label><input type="text" id="clientIBAN"
+                          name="clientIBAN" 
+                          class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                           />
+                      </div>
+                      <div class="inline-block w-full lg:w-1/2 flex flex-col items-start justify-center p-2">
+                        <label for="bank" class="italic mb-1">Contact person:</label><input type="text"
+                          id="clientContactP" name="clientContactP" value="BOS"
+                          class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                           />
+                      </div>
+                      <div class="inline-block w-full lg:w-1/2 flex flex-col items-start justify-center p-2">
+                        <label for="bank" class="italic mb-1">Telefon:</label><input type="text" id="clientPhone"
+                          name="clientPhone"
+                          class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                           />
+                      </div>
+                      <div class="inline-block w-full lg:w-1/2 flex flex-col items-start justify-center p-2">
+                        <label for="bank" class="italic mb-1">Email:</label><input type="text" id="clientEmail"
+                          name="clientEmail"
+                          class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                           />
                       </div>
                     </div>
-                    <div class="bg-sky-50 rounded-md my-4 pb-2">
-                      <div class="p-2">
-                        <h2
-                          class="italic font-semibold text-neutral-900 underline"
-                        >
-                          Serviciu / Produs:
-                        </h2>
-                      </div>
-                      <div class="flex flex-col">
-                        <div id="show_item" class="w-full">
-                          <div class="flex flex-wrap">
-                            <div
-                              class="inline-block w-full lg:w-1/2 flex flex-col items-start justify-start p-2"
-                            >
-                              <label for="itemName" class="italic mb-1 hidden"
-                                >Denumire:*</label
-                              ><textarea
-                                type="text"
-                                id="itemName"
-                                name="product_name[]"
-                                class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
-                                placeholder="Denumire*"
-                                rows="2"
-                                required
-                              ></textarea>
-                            </div>
-                            <div
-                              class="inline-block w-full lg:w-1/4 flex flex-col items-start justify-start p-2"
-                            >
-                              <label for="itemQty" class="italic mb-1 hidden"
-                                >Cant.:*</label
-                              ><input
-                                type="number"
-                                id="itemQty"
-                                name="product_qty[]"
-                                class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
-                                placeholder="Cantitate*"
-                                required
-                              />
-                            </div>
-                            <div
-                              class="inline-block w-full lg:w-1/4 flex flex-col items-start justify-start p-2"
-                            >
-                              <label for="itemPrice" class="italic mb-1 hidden"
-                                >Pret unit.:*</label
-                              ><input
-                                type="number"
-                                id="itemPrice"
-                                name="product_price[]"
-                                class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
-                                placeholder="Pret unitate*"
-                                required
-                              />
-                            </div>
-                            <div
-                              class="inline-block w-full lg:w-1/4 flex flex-col items-start justify-start p-2"
-                            >
-                              <label for="itemTva" class="italic mb-1 hidden"
-                                >T.V.A.:*</label
-                              ><input
-                                type="number"
-                                id="product_vat"
-                                name="product_vat[]"
-                                class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
-                                placeholder="T.V.A.*"
-                                required
-                              />
-                            </div>
-                            <div
-                              class="inline-block w-full lg:w-1/4 flex flex-col items-start justify-start p-2"
-                            >
-                              <button
-                                type="button"
-                                class="add_item_btn w-full py-0.5 px-2 text-sm border border-sky-900 rounded text-neutral-900 hover:text-neutral-50 hover:bg-sky-900 transition-all duration-150"
-                              >
-                                Adauga produs
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                  </div>
+                  <div class="bg-sky-50 rounded-md my-4 pb-2">
+                    <div class="p-2">
+                      <h2 class="italic font-semibold text-neutral-900 underline">
+                        Serviciu / Produs:
+                      </h2>
                     </div>
-                    <div class="bg-sky-50 rounded-md my-4 pb-2">
-                      <div class="p-2">
-                        <h2
-                          class="italic font-semibold text-neutral-900 underline"
-                        >
-                          Date interne:
-                        </h2>
-                      </div>
-                      <div class="flex flex-wrap">
-                        <div
-                          class="inline-block w-full lg:w-1/3 flex flex-col items-start justify-center p-2"
-                        >
-                          <label for="tipServicii" class="italic mb-1"
-                            >Tip servicii:</label
-                          ><select
-                            id="item_type"
-                            name="item_type"
-                            value="BOS"
-                            class="w-full py-0.5 px-2 text-sm cursor-pointer"
-                            required
-                          >
-                            <option value="">---</option>
-                            <option value="recrutare">Recrutare</option>
-                            <option value="leasing">Leasing</option>
-                            <option value="training">Training</option>
-                            <option value="tb">Team building</option>
-                            <option value="handicap">Handicap</option>
-                            <option value="payroll">Payroll</option>
-                          </select>
-                        </div>
-                        <div
-                          class="inline-block w-full lg:w-1/3 flex flex-col items-start justify-center p-2"
-                        >
-                          <label for="postRecrutat" class="italic mb-1"
-                            >Post recrutat:</label
-                          ><input
-                            type="text"
-                            id="recruited_job"
-                            name="recruited_job"
-                            value="0"
-                            class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
-                            required
-                          />
-                        </div>
-                        <div
-                          class="inline-block w-full lg:w-1/3 flex flex-col items-start justify-center p-2"
-                        >
-                          <label for="respRecrutare" class="italic mb-1"
-                            >Resp. recrutare:</label
-                          ><select
-                            id="agent"
-                            name="agent"
-                            value="BOS"
-                            class="w-full py-0.5 px-2 text-sm cursor-pointer"
-                            required
-                          >
-                            <option value="">---</option>
-                            <option value="admin">Admin</option>
-                          </select>
+                    <div class="flex flex-col">
+                      <div id="show_item" class="w-full">
+                        <div class="flex flex-wrap">
+                          <div class="inline-block w-full lg:w-1/2 flex flex-col items-start justify-start p-2">
+                            <label for="itemName" class="italic mb-1 hidden">Denumire:*</label><textarea type="text"
+                              id="itemName" name="product_name[]"
+                              class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                              placeholder="Denumire*" rows="2" required></textarea>
+                          </div>
+                          <div class="inline-block w-full lg:w-1/4 flex flex-col items-start justify-start p-2">
+                            <label for="itemQty" class="italic mb-1 hidden">Cant.:*</label><input type="number"
+                              id="itemQty" name="product_qty[]"
+                              class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                              placeholder="Cantitate*" required />
+                          </div>
+                          <div class="inline-block w-full lg:w-1/4 flex flex-col items-start justify-start p-2">
+                            <label for="itemPrice" class="italic mb-1 hidden">Pret unit.:*</label><input type="number"
+                              id="itemPrice" name="product_price[]"
+                              class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                              placeholder="Pret unitate*" required />
+                          </div>
+                          <div class="inline-block w-full lg:w-1/4 flex flex-col items-start justify-start p-2">
+                            <label for="itemTva" class="italic mb-1 hidden">T.V.A.:*</label><input type="number"
+                              id="product_vat" name="product_vat[]"
+                              class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                              placeholder="T.V.A.*" required />
+                          </div>
+                          <div class="inline-block w-full lg:w-1/4 flex flex-col items-start justify-start p-2">
+                            <button type="button"
+                              class="add_item_btn w-full py-0.5 px-2 text-sm border border-sky-900 rounded text-neutral-900 hover:text-neutral-50 hover:bg-sky-900 transition-all duration-150">
+                              Adauga produs
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
+                  <div class="bg-sky-50 rounded-md my-4 pb-2">
+                    <div class="p-2">
+                      <h2 class="italic font-semibold text-neutral-900 underline">
+                        Date interne:
+                      </h2>
+                    </div>
+                    <div class="flex flex-wrap">
+                      <div class="inline-block w-full lg:w-1/3 flex flex-col items-start justify-center p-2">
+                        <label for="tipServicii" class="italic mb-1">Tip servicii:</label><select id="item_type"
+                          name="item_type" value="BOS" class="w-full py-0.5 px-2 text-sm cursor-pointer" required>
+                          <option value="">---</option>
+                          <option value="recrutare">Recrutare</option>
+                          <option value="leasing">Leasing</option>
+                          <option value="training">Training</option>
+                          <option value="tb">Team building</option>
+                          <option value="handicap">Handicap</option>
+                          <option value="payroll">Payroll</option>
+                        </select>
+                      </div>
+                      <div class="inline-block w-full lg:w-1/3 flex flex-col items-start justify-center p-2">
+                        <label for="postRecrutat" class="italic mb-1">Post recrutat:</label><input type="text"
+                          id="recruited_job" name="recruited_job" value="0"
+                          class="w-full py-0.5 px-2 text-sm placeholder:text-sm placeholder:text-neutral-400 placeholder:italic"
+                          required />
+                      </div>
+                      <div class="inline-block w-full lg:w-1/3 flex flex-col items-start justify-center p-2">
+                        <label for="respRecrutare" class="italic mb-1">Resp. recrutare:</label><select id="agent"
+                          name="agent" value="BOS" class="w-full py-0.5 px-2 text-sm cursor-pointer" required>
+                          <option value="">---</option>
+                          <option value="admin">Admin</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div
-                  class="modal-footer flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-neutral-200 rounded-b-md"
-                >
-                  <button
-                    type="button"
-                    class="inline-block px-6 py-2.5 bg-orange-600 text-orange-50 font-medium text-xs leading-tight rounded shadow-md hover:bg-orange-700 hover:shadow-lg focus:bg-orange-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-orange-800 active:shadow-lg transition duration-150 ease-in-out"
-                    data-bs-dismiss="modal"
-                  >
-                    Inchide
-                  </button>
-                  <input
-                    value="Submit"
-                    type="submit"
-                    class="inline-block px-6 py-2.5 bg-sky-900 text-sky-50 font-medium text-xs leading-tight rounded shadow-md hover:bg-sky-800 hover:shadow-lg focus:bg-sky-800 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-sky-700 active:shadow-lg transition duration-150 ease-in-out ml-1 cursor-pointer"
-                  />
-                </div>
-              </form>
-            </div>
+              </div>
+              <div
+                class="modal-footer flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-neutral-200 rounded-b-md">
+                <button type="button"
+                  class="inline-block px-6 py-2.5 bg-orange-600 text-orange-50 font-medium text-xs leading-tight rounded shadow-md hover:bg-orange-700 hover:shadow-lg focus:bg-orange-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-orange-800 active:shadow-lg transition duration-150 ease-in-out"
+                  data-bs-dismiss="modal">
+                  Inchide
+                </button>
+                <input value="Submit" type="submit"
+                  class="inline-block px-6 py-2.5 bg-sky-900 text-sky-50 font-medium text-xs leading-tight rounded shadow-md hover:bg-sky-800 hover:shadow-lg focus:bg-sky-800 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-sky-700 active:shadow-lg transition duration-150 ease-in-out ml-1 cursor-pointer" />
+              </div>
+            </form>
           </div>
         </div>
       </div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-    <script>
-      $(document).ready(function () {
-        $(".add_item_btn").click(function (e) {
-          e.preventDefault();
-          $("#show_item").prepend(`<div class="flex flex-wrap">
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $(".add_item_btn").click(function (e) {
+        e.preventDefault();
+        $("#show_item").prepend(`<div class="flex flex-wrap">
                             <div
                               class="inline-block w-full lg:w-1/2 flex flex-col items-start justify-start p-2"
                             >
@@ -724,84 +458,99 @@
             			</button>
                             </div>
                           </div>`);
-        });
-        $(document).on("click", ".remove_item_btn", function (e) {
-          e.preventDefault();
-          let row_item = $(this).parent().parent();
-          $(row_item).remove();
-        });
       });
-    </script>
-    <script>
-      const filterBtn = document.querySelector("#filterBtn");
-      const filtersContainer = document.querySelector("#filtersContainer");
-      filterBtn.addEventListener("click", () => {
-        filtersContainer.classList.toggle("hidden");
+      $(document).on("click", ".remove_item_btn", function (e) {
+        e.preventDefault();
+        let row_item = $(this).parent().parent();
+        $(row_item).remove();
       });
-    </script>
-    <script>
-      const wrapper = document.querySelector(".wrapper");
-      const selectBtn = document.querySelector(".select-btn");
-      const content = document.querySelector(".content");
-      const chevronDown = document.querySelector(".select-btn i");
-      options = wrapper.querySelector(".options");
-      const searchInput = document.querySelector(".search input");
+    });
+  </script>
+  <script>
+    const filterBtn = document.querySelector("#filterBtn");
+    const filtersContainer = document.querySelector("#filtersContainer");
+    filterBtn.addEventListener("click", () => {
+      filtersContainer.classList.toggle("hidden");
+    });
+  </script>
+  <script>
+    const wrapper = document.querySelector(".wrapper");
+    const selectBtn = document.querySelector(".select-btn");
+    const content = document.querySelector(".content");
+    const chevronDown = document.querySelector(".select-btn i");
+    options = wrapper.querySelector(".options");
+    const searchInput = document.querySelector(".cautare input");
 
-      var clients = [];
-      var stringClienti = "{{stringClienti}}";
+    var clients = [];
+    var stringClienti = "{{stringClienti}}";
 
-      var strx = stringClienti.split(",");
-      clients = clients.concat(strx);
+    var strx = stringClienti.split(",");
+    clients = clients.concat(strx);
 
-      function addClient(selectedClient) {
-        options.innerHTML = "";
-        clients.forEach((client) => {
-          let isSelected = client == selectedClient ? "selected" : "";
-          let li = `<li onClick="updateName(this)" class="bg-white rounded-md hover:bg-neutral-100 cursor-pointer p-2 ${isSelected}">${client}</li>`;
-          options.insertAdjacentHTML("beforeend", li);
-        });
-      }
+    function addClient(selectedClient) {
+      options.innerHTML = "";
+      clients.forEach((client) => {
+        let isSelected = client == selectedClient ? "selected" : "";
+        let li = `<li onClick="updateName(this)" class="bg-white rounded-md hover:bg-neutral-100 cursor-pointer p-2 ${isSelected} value=${client}">${client}</li>`;
+        options.insertAdjacentHTML("beforeend", li);
+      });
+    }
 
-      addClient();
+    addClient();
 
-      function updateName(selectedLi) {
-        searchInput.value = "";
-        addClient(selectedLi.innerText);
-        selectBtn.firstElementChild.innerText = selectedLi.innerText;
+    function updateName(selectedLi) {
+      searchInput.value = selectedLi.innerText;
+      addClient(selectedLi.innerText);
+      selectBtn.firstElementChild.innerText = selectedLi.innerText;
+      content.classList.add("hidden");
+      chevronDown.style = "transform: rotate(0)";
+      wrapper.classList.remove("active");
+    }
+
+    searchInput.addEventListener("keyup", () => {
+      let arr = [];
+      let searchedValue = searchInput.value.toLowerCase();
+      arr = clients
+        .filter((data) => {
+          return data.toLowerCase().includes(searchedValue);
+        })
+        .map(
+          (data) =>
+            `<li onClick="updateName(this)" class="bg-white rounded-md hover:bg-neutral-100 cursor-pointer p-2">${data}</li>`
+        )
+        .join("");
+      options.innerHTML = arr
+        ? arr
+        : `<p class="p-2 bg-red-100 rounded-md opacity-50">Nu s-a gasit niciun client</p>`;
+    });
+
+    selectBtn.addEventListener("click", () => {
+      wrapper.classList.toggle("active");
+      if (wrapper.classList.contains("active")) {
+        content.classList.remove("hidden");
+        chevronDown.style = "transform: rotate(-180deg)";
+      } else {
         content.classList.add("hidden");
         chevronDown.style = "transform: rotate(0)";
-        wrapper.classList.remove("active");
       }
+    });
 
-      searchInput.addEventListener("keyup", () => {
-        let arr = [];
-        let searchedValue = searchInput.value.toLowerCase();
-        arr = clients
-          .filter((data) => {
-            return data.toLowerCase().includes(searchedValue);
-          })
-          .map(
-            (data) =>
-              `<li onClick="updateName(this)" class="bg-white rounded-md hover:bg-neutral-100 cursor-pointer p-2">${data}</li>`
-          )
-          .join("");
-        options.innerHTML = arr
-          ? arr
-          : `<p class="p-2 bg-red-100 rounded-md opacity-50">Nu s-a gasit niciun client</p>`;
+    document.getElementById("emitDate").valueAsDate = new Date();
+  </script>
+
+  <script>
+    const butonDeTest = document.querySelector("#test");
+    butonDeTest.addEventListener("click", () => {
+      Swal.fire({
+        title: "Plata acceptata!",
+        icon: "success",
+        showCancelButton: true,
+        showConfirmButton: false,
+        cancelButtonColor: "#ea580c",
+        cancelButtonText: "Inchide"
       });
+    }); 
+  </script>
+</body>
 
-      selectBtn.addEventListener("click", () => {
-        wrapper.classList.toggle("active");
-        if (wrapper.classList.contains("active")) {
-          content.classList.remove("hidden");
-          chevronDown.style = "transform: rotate(-180deg)";
-        } else {
-          content.classList.add("hidden");
-          chevronDown.style = "transform: rotate(0)";
-        }
-      });
-
-      document.getElementById("emitDate").valueAsDate = new Date();
-    </script>
-  </body>
 </html>

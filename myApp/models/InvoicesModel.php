@@ -93,5 +93,15 @@ class InvoicesModel extends DBModel
         return $myPrep->execute();
     }
 
+    public function getPastDueInvoices(){
+        $q = "SELECT * FROM `invoices` WHERE `status` != 2 AND `due_date` > CURRENT_DATE";
+    }
+
+    public function correctStatus($id, $status){
+        $q = "UPDATE `invoices` SET `status` = $status WHERE `id` = $id";
+        $myPrep = $this->db()->prepare($q);
+        return $myPrep->execute();
+    }
+
 
 }

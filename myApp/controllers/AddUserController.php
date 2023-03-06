@@ -9,6 +9,9 @@ class AddUserController extends AppController
 
     public function init()
     {
+        $alert = new AlertsModel();
+
+
         if(isset($_POST["level"])){
             $level = $_POST["level"];
         } else {
@@ -41,6 +44,9 @@ class AddUserController extends AppController
         }
        }  else {
         //ceva mesaj de "acest user exista deja"
+        // echo "<script>alert('acest user exista deja')</script>";
+        $alert->showAlert("acest user exista deja");
+
        }
 
         sleep(2);
